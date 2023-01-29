@@ -17,25 +17,7 @@ ideas with the world. You can also read blogs from other people. you can like an
 
 Here are some screenshots of the app
 
-### 1 - Welcome Screen
-
-![Welcome](./assets/welcome.png)
-
-### 2 - Login Screen
-
-![Login](./assets/login.png)
-
-### 3 - Register Screen
-
-![Register](./assets/register.png)
-
-### 4 - Welcome Screen
-
-![Home](./assets/home.png)
-
-### 5 - Settings Screen
-
-![Home](./assets/settings.png)
+![Welcome](./assets/screenshots.png)
 
 ## Download
 
