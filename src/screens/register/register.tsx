@@ -80,9 +80,29 @@ export default function RegisterScreen() {
           placeholderTextColor={colors.text}
           secureTextEntry={true}
         />
+
+        <TextInput
+          autoCapitalize="none"
+          autoComplete="password"
+          autoCorrect={false}
+          // keyboardType="visible-password"
+          placeholder="Confirm Password"
+          style={{
+            ...styles.input,
+            color: colors.text,
+            backgroundColor: colors.primary,
+            borderBottomColor: colors.text,
+          }}
+          placeholderTextColor={colors.text}
+          secureTextEntry={true}
+        />
       </View>
 
-      <View>
+      <View
+        style={{
+          marginHorizontal: 10,
+        }}
+      >
         <Button variant="contained">Register</Button>
       </View>
     </SafeAreaView>
@@ -106,6 +126,7 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     marginBottom: 10,
+    paddingHorizontal: 10,
   },
   input: {
     width: "100%",
@@ -113,6 +134,6 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     fontFamily: fonts.primary.regular,
     fontSize: 16,
-    borderBottomWidth: 0.6,
+    borderBottomWidth: 0.4,
   },
 });

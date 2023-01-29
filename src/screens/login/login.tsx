@@ -105,6 +105,6 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     fontFamily: fonts.primary.regular,
     fontSize: 16,
-    borderBottomWidth: 0.6,
+    borderBottomWidth: 0.4,
   },
 });
