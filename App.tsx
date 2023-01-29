@@ -1,7 +1,8 @@
-import ToggleMode from "@/components/ToggleMode";
+import { ToggleMode } from "@/components";
+import { WelcomeScreen } from "@/screens";
 import { useTheme } from "@/theme/ThemeProvider";
 import { StatusBar } from "expo-status-bar";
-import { SafeAreaView, StyleSheet, Text } from "react-native";
+import { SafeAreaView, StyleSheet } from "react-native";
 
 export default function App() {
   const { colors, dark } = useTheme();
@@ -9,9 +10,7 @@ export default function App() {
     <SafeAreaView
       style={[styles.container, { backgroundColor: colors.primary }]}
     >
-      <Text style={[{ color: colors.text }]}>
-        Open up App.tsx to start working on your app! s
-      </Text>
+      <WelcomeScreen />
       <ToggleMode />
       <StatusBar style={dark ? "light" : "dark"} />
     </SafeAreaView>
@@ -21,7 +20,6 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
   },

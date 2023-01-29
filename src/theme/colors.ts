@@ -1,14 +1,14 @@
 interface Colors {
-    primary: string;
-    text: string;
+  primary: string;
+  text: string;
 }
 
 export const lightColors: Colors = {
-    primary: "#f2f4f9",
-    text: "#000"
-}
+  primary: "#fff",
+  text: "#1E202C",
+};
 
 export const darkColors: Colors = {
-    primary: "#000",
-    text: "#fff"
-}
+  primary: "#1E202C",
+  text: "#fff",
+};
