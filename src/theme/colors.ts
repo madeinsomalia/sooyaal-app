@@ -9,6 +9,7 @@ export const lightColors: Colors = {
 };
 
 export const darkColors: Colors = {
+  // primary: "#111827",
   primary: "#1E202C",
   text: "#fff",
 };
