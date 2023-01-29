@@ -11,7 +11,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { styles } from "./styles";
 import PostsList from "./posts-list";
 
-export default function home({ navigation }: any) {
+export default function HomeScreen({ navigation }: any) {
   const { colors, dark } = useTheme();
   return (
     <SafeAreaView
