@@ -1,21 +1,13 @@
-import { ToggleMode } from "@/components";
-import { WelcomeScreen } from "@/screens";
+import AppNavigator from "@/routers";
 import { useTheme } from "@/theme/ThemeProvider";
 import { StatusBar } from "expo-status-bar";
-import { View } from "react-native";
 
 export default function App() {
-  const { dark, colors } = useTheme();
+  const { dark } = useTheme();
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: colors.primary,
-      }}
-    >
-      <WelcomeScreen />
-      <ToggleMode />
+    <>
+      <AppNavigator />
       <StatusBar style={dark ? "light" : "dark"} />
-    </View>
+    </>
   );
 }
