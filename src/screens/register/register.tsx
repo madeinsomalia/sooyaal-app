@@ -1,13 +1,13 @@
-import { StyleSheet, Text, TextInput, View } from "react-native";
-import React from "react";
+import { SafeAreaView, StyleSheet, Text, TextInput, View } from "react-native";
+import React, { useState } from "react";
 import { useTheme } from "@/theme/ThemeProvider";
 import { fonts } from "@/constants/fonts";
 import { Button } from "@/components";
 
-export default function LoginScreen({ navigation }: { navigation: any }) {
+export default function RegisterScreen() {
   const { colors } = useTheme();
   return (
-    <View
+    <SafeAreaView
       style={{
         ...styles.container,
         backgroundColor: colors.primary,
@@ -24,11 +24,39 @@ export default function LoginScreen({ navigation }: { navigation: any }) {
 
       <View style={styles.inputContainer}>
         <TextInput
+          keyboardType="default"
+          autoComplete="name"
+          autoCorrect={false}
+          autoCapitalize="none"
+          placeholder="Full Name"
+          style={{
+            ...styles.input,
+            color: colors.text,
+            backgroundColor: colors.primary,
+            borderBottomColor: colors.text,
+          }}
+          placeholderTextColor={colors.text}
+        />
+        <TextInput
           keyboardType="email-address"
           autoComplete="email"
           autoCorrect={false}
           autoCapitalize="none"
           placeholder="Email"
+          style={{
+            ...styles.input,
+            color: colors.text,
+            backgroundColor: colors.primary,
+            borderBottomColor: colors.text,
+          }}
+          placeholderTextColor={colors.text}
+        />
+        <TextInput
+          keyboardType="phone-pad"
+          autoComplete="tel"
+          autoCorrect={false}
+          autoCapitalize="none"
+          placeholder="Phone Number"
           style={{
             ...styles.input,
             color: colors.text,
@@ -55,44 +83,24 @@ export default function LoginScreen({ navigation }: { navigation: any }) {
       </View>
 
       <View>
-        <Button variant="contained">Login</Button>
+        <Button variant="contained">Register</Button>
       </View>
-
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          marginTop: 10,
-          width: "100%",
-          // alignItems: "center",
-          paddingHorizontal: 10,
-        }}
-      >
-        <Button variant="text" onPress={() => navigation.navigate("Register")}>
-          Sign up
-        </Button>
-        <Button
-          variant="text"
-          onPress={() => navigation.navigate("ForgotPassword")}
-        >
-          Forgot Password ?
-        </Button>
-      </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // alignItems: "center",
     justifyContent: "center",
+    // alignItems: "center",
     paddingHorizontal: 20,
   },
+
   heading: {
     fontFamily: fonts.primary.extraBold,
     fontSize: 50,
-    marginBottom: 20,
+    marginBottom: 25,
     letterSpacing: 1,
     textAlign: "center",
   },

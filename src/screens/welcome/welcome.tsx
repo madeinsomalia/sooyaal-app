@@ -47,7 +47,9 @@ export default function WelcomeScreen({ navigation }: { navigation: any }) {
         >
           Sign in
         </Button>
-        <Button variant="text">Sign up</Button>
+        <Button variant="text" onPress={() => navigation.navigate("Register")}>
+          Sign up
+        </Button>
       </View>
     </SafeAreaView>
   );
