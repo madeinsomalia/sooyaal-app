@@ -1,5 +1,5 @@
 import React from "react";
-import { SafeAreaView, Text, View } from "react-native";
+import { Linking, SafeAreaView, Text, View } from "react-native";
 import { useTheme } from "@/theme/ThemeProvider";
 import { styles } from "./styles";
 import { Button } from "@/components";
@@ -51,6 +51,18 @@ export default function WelcomeScreen({ navigation }: { navigation: any }) {
           Sign up
         </Button>
       </View>
+
+      <Button
+        style={{
+          position: "absolute",
+          bottom: 20,
+          right: 20,
+        }}
+        variant="text"
+        onPress={() => Linking.openURL("https://abdizamedmo.netlify.app")}
+      >
+        About me &rarr;
+      </Button>
     </SafeAreaView>
   );
 }
