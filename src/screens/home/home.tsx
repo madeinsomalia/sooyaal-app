@@ -30,7 +30,7 @@ export default function home({ navigation }: any) {
           />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
+        <TouchableOpacity onPress={() => navigation.navigate("Settings")}>
           <Ionicons name="settings-outline" size={24} color={colors.text} />
         </TouchableOpacity>
       </View>

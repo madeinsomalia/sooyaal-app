@@ -3,6 +3,7 @@ import {
   HomeScreen,
   LoginScreen,
   RegisterScreen,
+  SettingsScreen,
   WelcomeScreen,
 } from "@/screens";
 // import { useTheme } from "@/theme/ThemeProvider";
@@ -51,6 +52,14 @@ export default function AppNavigator() {
         <Stack.Screen
           name="Home"
           component={HomeScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+
+        <Stack.Screen
+          name="Settings"
+          component={SettingsScreen}
           options={{
             headerShown: false,
           }}

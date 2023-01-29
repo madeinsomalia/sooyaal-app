@@ -12,7 +12,7 @@ export default function PostsList() {
       style={{
         ...styles.card,
         backgroundColor: colors.primary,
-        shadowColor: !dark ? colors.text : "#000",
+        shadowColor: !dark ? colors.primary : "#030303",
       }}
     >
       <View style={styles.content}>
