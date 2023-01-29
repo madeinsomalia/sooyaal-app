@@ -1,6 +1,6 @@
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
-import { SafeAreaView, TouchableOpacity } from "react-native";
+import { Platform, SafeAreaView, TouchableOpacity } from "react-native";
 import { useTheme } from "@/theme/ThemeProvider";
 
 export default function ToggleMode({ styles }: { styles?: any }) {
@@ -12,8 +12,8 @@ export default function ToggleMode({ styles }: { styles?: any }) {
           ? styles
           : {
               position: "absolute",
-              top: 70,
-              right: 15,
+              top: Platform.OS === "android" ? 50 : 40,
+              right: 30,
               zIndex: 100,
             }
       }

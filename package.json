@@ -26,9 +26,7 @@
     "react-native-web": "~0.18.9",
     "react-redux": "^8.0.5",
     "redux-persist": "^6.0.0",
-    "remote-redux-devtools": "^0.5.16",
-    "yup": "^0.32.11",
-    "@expo/webpack-config": "^0.17.2"
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

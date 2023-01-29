@@ -55,7 +55,9 @@ export default function LoginScreen({ navigation }: { navigation: any }) {
       </View>
 
       <View>
-        <Button variant="contained">Login</Button>
+        <Button variant="contained" onPress={() => navigation.navigate("Home")}>
+          Login
+        </Button>
       </View>
 
       <View

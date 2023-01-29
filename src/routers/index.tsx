@@ -1,5 +1,10 @@
 // import { fonts } from "@/constants/fonts";
-import { LoginScreen, RegisterScreen, WelcomeScreen } from "@/screens";
+import {
+  HomeScreen,
+  LoginScreen,
+  RegisterScreen,
+  WelcomeScreen,
+} from "@/screens";
 // import { useTheme } from "@/theme/ThemeProvider";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -38,6 +43,14 @@ export default function AppNavigator() {
         <Stack.Screen
           name="Register"
           component={RegisterScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
           options={{
             headerShown: false,
           }}
