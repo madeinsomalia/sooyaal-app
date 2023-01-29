@@ -36,10 +36,19 @@ export default function WelcomeScreen({ navigation }: { navigation: any }) {
         </Text>
       </View>
 
-      <Button variant="contained" onPress={() => navigation.navigate("Login")}>
-        Sign in
-      </Button>
-      <Button variant="text">Sign up</Button>
+      <View
+        style={{
+          marginHorizontal: 20,
+        }}
+      >
+        <Button
+          variant="contained"
+          onPress={() => navigation.navigate("Login")}
+        >
+          Sign in
+        </Button>
+        <Button variant="text">Sign up</Button>
+      </View>
     </SafeAreaView>
   );
 }

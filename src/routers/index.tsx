@@ -1,13 +1,13 @@
-import { fonts } from "@/constants/fonts";
+// import { fonts } from "@/constants/fonts";
 import { LoginScreen, WelcomeScreen } from "@/screens";
-import { useTheme } from "@/theme/ThemeProvider";
+// import { useTheme } from "@/theme/ThemeProvider";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 const Stack = createNativeStackNavigator();
 
 export default function AppNavigator() {
-  const { colors } = useTheme();
+  // const { colors } = useTheme();
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Welcome">
@@ -22,15 +22,16 @@ export default function AppNavigator() {
           name="Login"
           component={LoginScreen}
           options={{
-            headerBackTitleVisible: false,
-            title: "Sign in",
-            headerStyle: {
-              backgroundColor: colors.primary,
-            },
-            headerTitleStyle: {
-              color: colors.text,
-              fontFamily: fonts.primary.medium,
-            },
+            // headerBackTitleVisible: false,
+            // title: "Sign in",
+            // headerStyle: {
+            //   backgroundColor: colors.primary,
+            // },
+            // headerTitleStyle: {
+            //   color: colors.text,
+            //   fontFamily: fonts.primary.medium,
+            // },
+            headerShown: false,
           }}
         />
       </Stack.Navigator>

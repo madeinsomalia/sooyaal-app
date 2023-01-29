@@ -34,7 +34,7 @@ export default function Button({ children, variant, onPress }: IButtonProps) {
       onPress={onPress}
       style={[
         {
-          width: "80%",
+          width: "100%",
           alignItems: "center",
           justifyContent: "center",
           height: 50,

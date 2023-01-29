@@ -13,7 +13,7 @@ export default function ToggleMode({ styles }: { styles?: any }) {
           : {
               position: "absolute",
               top: 70,
-              right: 7,
+              right: 15,
               zIndex: 100,
             }
       }

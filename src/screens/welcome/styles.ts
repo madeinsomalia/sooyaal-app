@@ -4,12 +4,13 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
     justifyContent: "center",
+    width: "100%",
   },
   header: {
-    flexDirection: "column",
-    justifyContent: "center",
+    paddingHorizontal: 20,
+    // flexDirection: "column",
+    // justifyContent: "center",
     marginBottom: 20,
   },
   heading: {
@@ -21,7 +22,7 @@ export const styles = StyleSheet.create({
   subheading: {
     fontFamily: fonts.primary.light,
     fontSize: 18,
-    maxWidth: 300,
+    maxWidth: 400,
     textAlign: "left",
     letterSpacing: 0.31,
   },
