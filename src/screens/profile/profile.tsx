@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   Platform,
   Linking,
+  ScrollView,
 } from "react-native";
 import React, { useEffect } from "react";
 import { useTheme } from "@/theme/ThemeProvider";
@@ -13,6 +14,7 @@ import * as ImagePicker from "expo-image-picker";
 import { fonts } from "@/constants/fonts";
 import { Button } from "@/components";
 import { Entypo } from "@expo/vector-icons";
+import PostsList from "../home/posts-list";
 
 const fakeUsers = [
   {
@@ -63,6 +65,7 @@ const fakeProfileUsers = [
       {
         id: 1,
         title: "Post 1",
+        image: "https://picsum.photos/200/300",
         content: "Post 1 content content, content, content, content .content",
         likes: 10,
         comments: 5,
@@ -72,6 +75,8 @@ const fakeProfileUsers = [
       {
         id: 2,
         title: "Post 2",
+        image: "https://picsum.photos/200/300",
+
         content: "Post 2 content content, content, content, content .content",
         likes: 10,
         comments: 5,
@@ -180,9 +185,9 @@ export default function ProfileScreen({
   };
 
   const openFullScreenImage = () => {
-    userInfo.photoURL &&
+    profileUser?.photoURL &&
       navigation.navigate("FullScreenImage", {
-        image: userInfo.photoURL,
+        image: profileUser?.photoURL as string,
       });
   };
 
@@ -193,264 +198,225 @@ export default function ProfileScreen({
         backgroundColor: colors.primary,
       }}
     >
-      <TouchableOpacity
-        style={{
-          alignItems: "center",
-          justifyContent: "center",
-          height: 200,
-          backgroundColor: !dark ? "#e5e5e5" : "#11121a",
-          //   colors.primary
-          marginTop: 20,
-          shadowColor: dark ? "#000" : "#d1d5db",
-          shadowOffset: {
-            width: 0,
-            height: 2,
-          },
-          shadowOpacity: 0.41,
-          shadowRadius: 92.11,
-          elevation: 14,
-        }}
-      >
+      <ScrollView style={{ marginTop: 10 }}>
+        <TouchableOpacity
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+            height: 200,
+            backgroundColor: !dark ? "#e5e5e5" : "#11121a",
+            //   colors.primary
+            marginTop: 20,
+            shadowColor: dark ? "#000" : "#d1d5db",
+            shadowOffset: {
+              width: 0,
+              height: 2,
+            },
+            shadowOpacity: 0.41,
+            shadowRadius: 92.11,
+            elevation: 14,
+          }}
+        >
+          <View
+            style={{
+              flexDirection: "row",
+            }}
+          >
+            <Text
+              style={{
+                color: colors.text,
+                fontFamily: fonts.primary.regular,
+                fontSize: 18,
+                opacity: 0.4,
+              }}
+            >
+              Add
+            </Text>
+
+            <Ionicons
+              name="camera-outline"
+              size={24}
+              color={colors.text}
+              style={{
+                marginLeft: 10,
+                opacity: 0.4,
+              }}
+            />
+            <Text
+              style={{
+                color: colors.text,
+                fontFamily: fonts.primary.regular,
+                fontSize: 18,
+                marginLeft: 10,
+                opacity: 0.4,
+              }}
+            >
+              Cover photo
+            </Text>
+          </View>
+        </TouchableOpacity>
+
+        <View
+          style={{
+            position: "absolute",
+            top: 150,
+            left: 10,
+
+            justifyContent: "center",
+            alignItems: "flex-end",
+          }}
+        >
+          <TouchableOpacity
+            onPress={() => openFullScreenImage()}
+            style={{
+              borderWidth: 3,
+              borderColor: colors.primary,
+              borderRadius: 90,
+              padding: 0.5,
+            }}
+          >
+            <Image
+              source={{ uri: profileUser?.photoURL }}
+              style={{
+                height: 120,
+                width: 120,
+                resizeMode: "cover",
+                backgroundColor: colors.primary,
+                borderRadius: 100,
+              }}
+            />
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => pickImage()}
+            style={{
+              position: "absolute",
+              // bottom: 0,
+              top: 100,
+              right: 5,
+              backgroundColor: colors.primary,
+              borderRadius: 50,
+            }}
+          >
+            <Ionicons
+              name="camera-outline"
+              size={24}
+              color={dark ? "#e5e7eb" : "#1f2937"}
+            />
+          </TouchableOpacity>
+        </View>
+
         <View
           style={{
             flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginHorizontal: 10,
+            marginTop: 70,
           }}
         >
-          <Text
-            style={{
-              color: colors.text,
-              fontFamily: fonts.primary.regular,
-              fontSize: 18,
-              opacity: 0.4,
-            }}
-          >
-            Add
-          </Text>
-
-          <Ionicons
-            name="camera-outline"
-            size={24}
-            color={colors.text}
-            style={{
-              marginLeft: 10,
-              opacity: 0.4,
-            }}
-          />
-          <Text
-            style={{
-              color: colors.text,
-              fontFamily: fonts.primary.regular,
-              fontSize: 18,
-              marginLeft: 10,
-              opacity: 0.4,
-            }}
-          >
-            Cover photo
-          </Text>
-        </View>
-      </TouchableOpacity>
-
-      <View
-        style={{
-          position: "absolute",
-          top: 150,
-          left: 10,
-
-          justifyContent: "center",
-          alignItems: "flex-end",
-        }}
-      >
-        <TouchableOpacity
-          onPress={() => openFullScreenImage()}
-          style={{
-            borderWidth: 3,
-            borderColor: colors.primary,
-            borderRadius: 90,
-            padding: 0.5,
-          }}
-        >
-          <Image
-            source={{ uri: userInfo.photoURL }}
-            style={{
-              height: 120,
-              width: 120,
-              resizeMode: "cover",
-              backgroundColor: colors.primary,
-              borderRadius: 100,
-            }}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={() => pickImage()}
-          style={{
-            position: "absolute",
-            // bottom: 0,
-            top: 100,
-            right: 5,
-            backgroundColor: colors.primary,
-            borderRadius: 50,
-          }}
-        >
-          <Ionicons
-            name="camera-outline"
-            size={24}
-            color={dark ? "#e5e7eb" : "#1f2937"}
-          />
-        </TouchableOpacity>
-      </View>
-
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginHorizontal: 10,
-          marginTop: 70,
-        }}
-      >
-        <View
-          style={{
-            marginLeft: 10,
-          }}
-        >
-          <Text
-            style={{
-              color: colors.text,
-
-              fontFamily: fonts.primary.regular,
-              fontSize: 18,
-            }}
-          >
-            {userInfo?.name}
-          </Text>
-          <Text
-            style={{
-              color: colors.text,
-              fontFamily: fonts.primary.regular,
-              fontSize: 14,
-              opacity: 0.4,
-            }}
-          >
-            {userInfo?.email}
-          </Text>
-        </View>
-        <TouchableOpacity
-          style={{
-            backgroundColor: colors.primary,
-            padding: 10,
-            borderRadius: 10,
-          }}
-        >
-          <Text
-            style={{
-              color: colors.text,
-              fontFamily: fonts.primary.regular,
-              fontSize: 14,
-            }}
-          >
-            Edit Profile
-          </Text>
-        </TouchableOpacity>
-      </View>
-
-      <View
-        style={{
-          flexDirection: "row",
-          marginHorizontal: 22,
-          marginVertical: 10,
-        }}
-      >
-        <Button
-          onPress={() => Linking.openURL(userInfo.website as string)}
-          variant="text"
-          style={{
-            borderBottomWidth: 2,
-            height: 20,
-            borderRadius: 0,
-            borderBottomColor: "#f2f2f2",
-          }}
-        >
-          Visit Website
-        </Button>
-      </View>
-      {/* <SectionList
-        style={{
-          marginTop: 10,
-          paddingHorizontal: 20,
-        }}
-        sections={[
-          {
-            title: "Education",
-            data: [userInfo?.education],
-          },
-          {
-            title: "Address",
-            data: [userInfo?.address],
-          },
-        ]}
-        renderItem={({ item }) => (
           <View
             style={{
-              borderRadius: 10,
-              marginBottom: 10,
+              marginLeft: 10,
             }}
           >
-            <View>
-              {Array.isArray(item) &&
-                item?.map((item) => {
-                  return (
-                    <View
-                      style={{
-                        flexDirection: "row",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        marginHorizontal: 10,
-                        marginTop: 10,
-                      }}
-                    >
-                      <View>
-                        <Text>{item?.school}</Text>
-                        <Text>{item?.degree}</Text>
-                        <Text>{item?.fieldOfStudy}</Text>
-                      </View>
-                      <Text>{item?.from}</Text>
-                      <Text>{item?.to}</Text>
-                    </View>
-                  );
-                })}
+            <Text
+              style={{
+                color: colors.text,
 
-              {!Array.isArray(item) && (
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    marginHorizontal: 10,
-                    marginTop: 10,
-                  }}
-                >
-                  <Text>
-                    {item?.street}, {item?.city}, {item?.state}, {item?.country}
-                  </Text>
-                </View>
-              )}
-            </View>
+                fontFamily: fonts.primary.regular,
+                fontSize: 18,
+              }}
+            >
+              {userInfo?.name}
+            </Text>
+            <Text
+              style={{
+                color: colors.text,
+                fontFamily: fonts.primary.regular,
+                fontSize: 14,
+                opacity: 0.4,
+              }}
+            >
+              {userInfo?.email}
+            </Text>
           </View>
-        )}
-        renderSectionHeader={({ section: { title } }) => (
-          <Text
+          <TouchableOpacity
             style={{
-              color: colors.text,
-              fontFamily: fonts.primary.regular,
-              fontSize: 18,
-              marginTop: 10,
+              backgroundColor: colors.primary,
+              padding: 10,
+              borderRadius: 10,
             }}
           >
-            {title}
-          </Text>
-        )}
-      /> */}
+            <Text
+              style={{
+                color: colors.text,
+                fontFamily: fonts.primary.regular,
+                fontSize: 14,
+              }}
+            >
+              Edit Profile
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+        <View
+          style={{
+            borderRadius: 10,
+            marginBottom: 10,
+            marginHorizontal: 10,
+
+            marginTop: 20,
+          }}
+        >
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginHorizontal: 10,
+            }}
+          >
+            <Text
+              style={{
+                color: colors.text,
+                fontFamily: fonts.primary.regular,
+                fontSize: 15,
+                marginTop: 10,
+              }}
+            >
+              Posts
+            </Text>
+
+            <Button
+              variant="contained"
+              style={{
+                // height: 35,
+                padding: 10,
+                justifyContent: "center",
+                // alignItems: "center",
+              }}
+              onPress={() => navigation.navigate("CreatePost")}
+            >
+              Create Post
+            </Button>
+          </View>
+          <View
+            style={{
+              width: "94%",
+              backgroundColor: colors.text,
+              height: 0.2,
+              marginTop: 15,
+
+              marginHorizontal: 10,
+            }}
+          />
+          {profileUser?.posts &&
+            profileUser?.posts.map((item: any) => {
+              return <PostsList />;
+            })}
+        </View>
+      </ScrollView>
     </View>
   );
 }

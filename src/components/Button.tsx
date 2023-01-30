@@ -36,7 +36,7 @@ export default function Button({
   const defaultBtnStyles = {
     alignItems: "center",
     justifyContent: "center",
-    height: 50,
+    padding: 15,
   };
   return (
     <TouchableOpacity
