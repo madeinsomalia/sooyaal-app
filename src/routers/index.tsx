@@ -2,6 +2,7 @@
 import { ToggleMode } from "@/components";
 import ShowFullScreenImage from "@/components/ShowFullScreenImage";
 import {
+  CreatePostScreen,
   HomeScreen,
   LoginScreen,
   ProfileScreen,
@@ -81,6 +82,10 @@ export default function AppNavigator() {
             },
             headerTitleStyle: {
               color: colors.text,
+            },
+
+            headerSearchBarOptions: {
+              placeholder: "Search for posts",
             },
 
             headerRight: () => (
@@ -163,6 +168,26 @@ export default function AppNavigator() {
               color: colors.text,
             },
             headerShadowVisible: false,
+          }}
+        />
+
+        <Stack.Screen
+          name="CreatePost"
+          component={CreatePostScreen}
+          options={{
+            // headerShown: false,
+            headerTitle: "Create a Post",
+            headerStyle: {
+              backgroundColor: colors.primary,
+            },
+            headerTitleStyle: {
+              color: colors.text,
+              fontFamily: fonts.primary.regular,
+            },
+            headerTitleAlign: "center",
+            // headerShadowVisible: false,
+
+            headerRight: () => <ToggleMode />,
           }}
         />
       </Stack.Navigator>
