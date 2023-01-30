@@ -1,19 +1,21 @@
 // import { fonts } from "@/constants/fonts";
+import ShowFullScreenImage from "@/components/ShowFullScreenImage";
 import {
   HomeScreen,
   LoginScreen,
+  ProfileScreen,
   RegisterScreen,
   SettingsScreen,
   WelcomeScreen,
 } from "@/screens";
-// import { useTheme } from "@/theme/ThemeProvider";
+import { useTheme } from "@/theme/ThemeProvider";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 const Stack = createNativeStackNavigator();
 
 export default function AppNavigator() {
-  // const { colors } = useTheme();
+  const { colors } = useTheme();
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Welcome">
@@ -45,7 +47,15 @@ export default function AppNavigator() {
           name="Register"
           component={RegisterScreen}
           options={{
-            headerShown: false,
+            // headerShown: true,
+            headerTitle: "",
+            headerShadowVisible: false,
+            headerStyle: {
+              backgroundColor: colors.primary,
+            },
+            headerTitleStyle: {
+              color: colors.text,
+            },
           }}
         />
 
@@ -61,7 +71,46 @@ export default function AppNavigator() {
           name="Settings"
           component={SettingsScreen}
           options={{
-            headerShown: false,
+            headerStyle: {
+              backgroundColor: colors.primary,
+            },
+            headerTitleStyle: {
+              color: colors.text,
+            },
+            headerShadowVisible: false,
+          }}
+        />
+
+        <Stack.Screen
+          name="Profile"
+          component={ProfileScreen}
+          options={{
+            headerStyle: {
+              backgroundColor: colors.primary,
+            },
+            headerTitleStyle: {
+              color: colors.text,
+            },
+            headerShadowVisible: false,
+          }}
+          initialParams={{
+            userId: "1",
+          }}
+        />
+
+        <Stack.Screen
+          name="FullScreenImage"
+          component={ShowFullScreenImage}
+          options={{
+            // headerShown: false,
+            headerTitle: "",
+            headerStyle: {
+              backgroundColor: colors.primary,
+            },
+            headerTitleStyle: {
+              color: colors.text,
+            },
+            headerShadowVisible: false,
           }}
         />
       </Stack.Navigator>

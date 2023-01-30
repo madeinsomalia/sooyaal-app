@@ -8,12 +8,29 @@ import {
   Image,
   SectionList,
 } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { useTheme } from "@/theme/ThemeProvider";
 import { fonts } from "@/constants/fonts";
+import { Ionicons } from "@expo/vector-icons";
 
-export default function SettingsScreen() {
-  const { colors } = useTheme();
+export default function SettingsScreen({ navigation }: { navigation: any }) {
+  const { colors, dark } = useTheme();
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => (
+        <Ionicons
+          name="chevron-back-outline"
+          color={colors.text}
+          size={24}
+          onPress={() => {
+            navigation.goBack();
+          }}
+        />
+      ),
+    });
+  }, [navigation, dark]);
+
   return (
     <SafeAreaView
       style={{
@@ -23,7 +40,7 @@ export default function SettingsScreen() {
     >
       <View
         style={{
-          paddingTop: Platform.OS === "android" ? 90 : 40,
+          paddingTop: 20,
         }}
       >
         <TouchableOpacity style={styles.userContainer}>

@@ -1,11 +1,28 @@
 import { SafeAreaView, StyleSheet, Text, TextInput, View } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { useTheme } from "@/theme/ThemeProvider";
 import { fonts } from "@/constants/fonts";
 import { Button } from "@/components";
+import { Ionicons } from "@expo/vector-icons";
 
-export default function RegisterScreen() {
-  const { colors } = useTheme();
+export default function RegisterScreen({ navigation }: { navigation: any }) {
+  const { colors, dark } = useTheme();
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => (
+        <Ionicons
+          name="chevron-back-outline"
+          color={colors.text}
+          size={24}
+          onPress={() => {
+            navigation.goBack();
+          }}
+        />
+      ),
+    });
+  }, [navigation, dark]);
+
   return (
     <SafeAreaView
       style={{
@@ -115,6 +132,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     // alignItems: "center",
     paddingHorizontal: 20,
+
+    marginTop: -40,
   },
 
   heading: {
