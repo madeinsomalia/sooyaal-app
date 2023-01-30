@@ -10,7 +10,7 @@ import {
 import React, { useEffect } from "react";
 import { useTheme } from "@/theme/ThemeProvider";
 import { fonts } from "@/constants/fonts";
-import { Ionicons } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 
 export default function SettingsScreen({ navigation }: { navigation: any }) {
   const { colors, dark } = useTheme();
@@ -18,17 +18,12 @@ export default function SettingsScreen({ navigation }: { navigation: any }) {
   useEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
-        <Ionicons
-          name="chevron-back-outline"
-          color={colors.text}
-          size={24}
-          onPress={() => {
-            navigation.goBack();
-          }}
-        />
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Entypo name="chevron-thin-left" size={24} color={colors.text} />
+        </TouchableOpacity>
       ),
     });
-  }, [navigation, dark]);
+  }, [dark, navigation]);
 
   return (
     <SafeAreaView

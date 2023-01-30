@@ -12,7 +12,7 @@ import {
 import { useTheme } from "@/theme/ThemeProvider";
 import { Link, NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { TouchableOpacity, View, Image } from "react-native";
+import { View, Image, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { styles } from "@/screens/home/styles";
 import { fonts } from "@/constants/fonts";
@@ -104,21 +104,6 @@ export default function AppNavigator() {
                 <ToggleMode />
               </View>
             ),
-            headerLeft: () => (
-              <Link
-                // to={"Profile"}
-                to={"/Profile"}
-                // to={{ screen: "/Profile", params: { userId: "1" } }}
-                style={{ marginLeft: 10 }}
-              >
-                <Image
-                  source={{
-                    uri: "https://www.moveo.it/wp-content/uploads/2018/10/empty-avatar.png",
-                  }}
-                  style={styles.avatar}
-                />
-              </Link>
-            ),
           }}
         />
 
@@ -131,12 +116,13 @@ export default function AppNavigator() {
             },
 
             headerShadowVisible: false,
+            headerBackTitle: "",
 
             headerTitleStyle: {
               color: colors.text,
               fontFamily: fonts.primary.regular,
             },
-
+            headerTitleAlign: "center",
             headerRight: () => <ToggleMode />,
           }}
         />
@@ -148,13 +134,15 @@ export default function AppNavigator() {
             headerStyle: {
               backgroundColor: colors.primary,
             },
-
+            headerBackVisible: false,
             headerTitleStyle: {
               color: colors.text,
               fontFamily: fonts.primary.regular,
             },
+            headerTitleAlign: "center",
             headerShadowVisible: false,
             headerBackTitle: "",
+
             headerRight: () => <ToggleMode />,
           }}
           initialParams={{

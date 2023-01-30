@@ -27,10 +27,8 @@ export const styles = StyleSheet.create({
   },
 
   scrollView: {
-    height: "100%",
-    width: "100%",
-
     paddingHorizontal: 25,
+    marginTop: Platform.OS === "android" ? -40 : 10,
   },
   content: {
     flexDirection: "row",

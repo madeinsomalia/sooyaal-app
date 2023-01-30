@@ -4,15 +4,15 @@ import {
   Image,
   TouchableOpacity,
   Platform,
-  SectionList,
   Linking,
 } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { useTheme } from "@/theme/ThemeProvider";
 import { Ionicons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import { fonts } from "@/constants/fonts";
 import { Button } from "@/components";
+import { Entypo } from "@expo/vector-icons";
 
 const fakeUsers = [
   {
@@ -138,7 +138,15 @@ export default function ProfileScreen({
   route: any;
 }) {
   const { colors, dark } = useTheme();
-
+  useEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => (
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Entypo name="chevron-thin-left" size={24} color={colors.text} />
+        </TouchableOpacity>
+      ),
+    });
+  }, [dark, navigation]);
   // search for the user
   const user = fakeUsers.find((user) => user.id == route.params.userId);
   // search for the profile user

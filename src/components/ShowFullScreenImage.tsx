@@ -1,16 +1,12 @@
 import {
-  Dimensions,
   ImageBackground,
   SafeAreaView,
   StyleSheet,
-  Text,
-  TouchableHighlight,
-  View,
+  TouchableOpacity,
 } from "react-native";
 import React, { useEffect } from "react";
 import { useTheme } from "@/theme/ThemeProvider";
-import { fonts } from "@/constants/fonts";
-
+import { Entypo } from "@expo/vector-icons";
 // let deviceH = Dimensions.get("window").height;
 // let deviceW = Dimensions.get("window").width;
 
@@ -26,22 +22,9 @@ export default function ShowFullScreenImage({
   useEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
-        <TouchableHighlight
-          style={{
-            marginLeft: 20,
-          }}
-          onPress={() => navigation.goBack()}
-        >
-          <Text
-            style={{
-              color: colors.text,
-              fontSize: 18,
-              fontFamily: fonts.primary.bold,
-            }}
-          >
-            Back
-          </Text>
-        </TouchableHighlight>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Entypo name="chevron-thin-left" size={24} color={colors.text} />
+        </TouchableOpacity>
       ),
     });
   }, [dark, navigation]);
