@@ -20,7 +20,7 @@ export default function HomeScreen({ navigation }: any) {
         backgroundColor: !dark ? "#f2f2f2" : colors.primary,
       }}
     >
-      <View style={styles.header}>
+      {/* <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
           <Image
             source={{
@@ -33,7 +33,7 @@ export default function HomeScreen({ navigation }: any) {
         <TouchableOpacity onPress={() => navigation.navigate("Settings")}>
           <Ionicons name="settings-outline" size={24} color={colors.text} />
         </TouchableOpacity>
-      </View>
+      </View> */}
 
       {/* card with posts using ScrollView */}
       <ScrollView

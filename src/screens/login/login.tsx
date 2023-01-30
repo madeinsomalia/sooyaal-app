@@ -90,6 +90,7 @@ const styles = StyleSheet.create({
     // alignItems: "center",
     justifyContent: "center",
     paddingHorizontal: 20,
+    marginTop: -40,
   },
   heading: {
     fontFamily: fonts.primary.extraBold,

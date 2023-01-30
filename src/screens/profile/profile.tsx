@@ -166,17 +166,16 @@ export default function ProfileScreen({
       quality: 1,
     });
 
-    console.log(result);
-
     if (!result.canceled) {
       //   setImage(result.assets[0].uri);
     }
   };
 
   const openFullScreenImage = () => {
-    navigation.navigate("FullScreenImage", {
-      image: userInfo.photoURL,
-    });
+    userInfo.photoURL &&
+      navigation.navigate("FullScreenImage", {
+        image: userInfo.photoURL,
+      });
   };
 
   return (
@@ -247,12 +246,8 @@ export default function ProfileScreen({
         style={{
           position: "absolute",
           top: 150,
-          left: 40,
+          left: 10,
 
-          width: 100,
-          height: 100,
-          borderRadius: 50,
-          backgroundColor: colors.text,
           justifyContent: "center",
           alignItems: "flex-end",
         }}
@@ -266,33 +261,24 @@ export default function ProfileScreen({
             padding: 0.5,
           }}
         >
-          {userInfo.photoURL ? (
-            <Image
-              source={{ uri: userInfo.photoURL }}
-              style={{
-                width: 120,
-                height: 120,
-                borderRadius: 100,
-              }}
-            />
-          ) : (
-            <Text
-              style={{
-                textAlign: "center",
-                fontSize: 30,
-                color: colors.primary,
-              }}
-            >
-              {userInfo?.name?.charAt(0)}
-            </Text>
-          )}
+          <Image
+            source={{ uri: userInfo.photoURL }}
+            style={{
+              height: 120,
+              width: 120,
+              resizeMode: "cover",
+              backgroundColor: colors.primary,
+              borderRadius: 100,
+            }}
+          />
         </TouchableOpacity>
 
         <TouchableOpacity
           onPress={() => pickImage()}
           style={{
             position: "absolute",
-            bottom: -5,
+            // bottom: 0,
+            top: 100,
             right: 5,
             backgroundColor: colors.primary,
             borderRadius: 50,
@@ -312,7 +298,7 @@ export default function ProfileScreen({
           justifyContent: "space-between",
           alignItems: "center",
           marginHorizontal: 10,
-          marginTop: 45,
+          marginTop: 70,
         }}
       >
         <View
@@ -380,7 +366,7 @@ export default function ProfileScreen({
           Visit Website
         </Button>
       </View>
-      <SectionList
+      {/* <SectionList
         style={{
           marginTop: 10,
           paddingHorizontal: 20,
@@ -456,7 +442,7 @@ export default function ProfileScreen({
             {title}
           </Text>
         )}
-      />
+      /> */}
     </View>
   );
 }

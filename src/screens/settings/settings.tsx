@@ -1,5 +1,4 @@
 import {
-  Platform,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -43,7 +42,10 @@ export default function SettingsScreen({ navigation }: { navigation: any }) {
           paddingTop: 20,
         }}
       >
-        <TouchableOpacity style={styles.userContainer}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("Profile")}
+          style={styles.userContainer}
+        >
           <Image
             source={{
               uri: "https://avatars.githubusercontent.com/u/98351506?v=4",

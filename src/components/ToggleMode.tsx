@@ -11,10 +11,10 @@ export default function ToggleMode({ styles }: { styles?: any }) {
         styles
           ? styles
           : {
-              position: "absolute",
-              top: Platform.OS === "android" ? 50 : 40,
-              right: 30,
-              zIndex: 100,
+              // position: "absolute",
+              // top: Platform.OS === "android" ? 50 : 90,
+              // right: 20,
+              // zIndex: 100,
             }
       }
     >
