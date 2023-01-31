@@ -385,6 +385,7 @@ export default function ProfileScreen({
                 fontFamily: fonts.primary.regular,
                 fontSize: 15,
                 marginTop: 10,
+                marginLeft: 10,
               }}
             >
               Posts
@@ -395,12 +396,12 @@ export default function ProfileScreen({
               style={{
                 // height: 35,
                 padding: 10,
-                justifyContent: "center",
-                // alignItems: "center",
+
+                borderRadius: 50,
               }}
               onPress={() => navigation.navigate("CreatePost")}
             >
-              Create Post
+              <Ionicons name="add-outline" size={20} color={colors.primary} />
             </Button>
           </View>
 

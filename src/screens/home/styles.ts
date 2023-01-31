@@ -26,6 +26,11 @@ export const styles = StyleSheet.create({
 
     paddingHorizontal: 10,
   },
+
+  authorInfo: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
   content: {
     paddingHorizontal: 10,
   },

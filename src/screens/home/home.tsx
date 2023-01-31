@@ -9,6 +9,8 @@ import React, { useEffect } from "react";
 import { useTheme } from "@/theme/ThemeProvider";
 import { styles } from "./styles";
 import PostsList from "./posts-list";
+import { Button } from "@/components";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function HomeScreen({ navigation }: any) {
   const { colors, dark } = useTheme();
@@ -65,6 +67,22 @@ export default function HomeScreen({ navigation }: any) {
           return <PostsList key={i} />;
         })}
       </ScrollView>
+
+      {/* action button that navigates add post screen */}
+      <Button
+        variant="contained"
+        style={{
+          position: "absolute",
+          bottom: 20,
+          right: 15,
+          zIndex: 100,
+          borderRadius: 50,
+          padding: 10,
+        }}
+        onPress={() => navigation.push("CreatePost")}
+      >
+        <Ionicons name="add" size={24} color={colors.primary} />
+      </Button>
     </SafeAreaView>
   );
 }

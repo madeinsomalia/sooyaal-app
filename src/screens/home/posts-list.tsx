@@ -3,10 +3,83 @@ import React from "react";
 import { Ionicons, AntDesign } from "@expo/vector-icons";
 import { useTheme } from "@/theme/ThemeProvider";
 import { styles } from "./styles";
+import { Modal } from "react-native";
 
 export default function PostsList() {
   const { colors, dark } = useTheme();
+  const [showModal, setShowModal] = React.useState(false);
 
+  if (showModal) {
+    return (
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={showModal}
+        onRequestClose={() => {
+          setShowModal(false);
+        }}
+      >
+        <View
+          // style={styles.centeredView}
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: colors.secondary,
+          }}
+        >
+          <View
+            // style={styles.modalView}
+            style={{
+              flexDirection: "row",
+            }}
+          >
+            {/* radio buttons with private or public */}
+            <TouchableOpacity
+              style={{
+                backgroundColor: colors.cardBg,
+                borderRadius: 20,
+                padding: 35,
+                alignItems: "center",
+                shadowColor: !dark ? colors.primary : "#030303",
+                flexDirection: "row",
+              }}
+              onPress={() => setShowModal(false)}
+            >
+              <Ionicons
+                name="radio-button-on-outline"
+                size={24}
+                color={colors.text}
+              />
+              <Text style={{ color: colors.text, marginLeft: 5 }}>Public</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={{
+                marginLeft: 20,
+                backgroundColor: colors.cardBg,
+                borderRadius: 20,
+                padding: 35,
+                alignItems: "center",
+                shadowColor: !dark ? colors.primary : "#030303",
+                flexDirection: "row",
+              }}
+              onPress={() => setShowModal(false)}
+            >
+              <Ionicons
+                name="radio-button-off-outline"
+                size={24}
+                color={colors.text}
+              />
+              <Text style={{ color: colors.text, marginLeft: 5 }}>Private</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+    );
+  }
+
+  const count = "10000";
   return (
     <>
       <View
@@ -17,12 +90,44 @@ export default function PostsList() {
         }}
       >
         <View style={styles.author}>
-          <Text style={{ color: colors.text, fontSize: 15 }}>
-            {"Abdi Zamed Mohamed"}
-          </Text>
+          <View style={styles.authorInfo}>
+            <Image
+              source={{ uri: "https://picsum.photos/200" }}
+              style={styles.avatar}
+            />
+            <View
+              style={{
+                flexDirection: "column",
+                opacity: 0.8,
+              }}
+            >
+              <Text style={{ color: colors.text, fontSize: 15, marginLeft: 5 }}>
+                {"Abdi Zamed Mohamed"}
+              </Text>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  marginLeft: 5,
+                }}
+              >
+                <Ionicons name="time-outline" size={15} color={colors.text} />
+                <Text
+                  style={{ color: colors.text, fontSize: 15, marginLeft: 5 }}
+                >
+                  {"1 hour ago"}
+                </Text>
+              </View>
+            </View>
+          </View>
 
           <TouchableOpacity>
-            <AntDesign name="ellipsis1" size={24} color={colors.text} />
+            <AntDesign
+              name="ellipsis1"
+              size={24}
+              color={colors.text}
+              onPress={() => setShowModal(true)}
+            />
           </TouchableOpacity>
         </View>
 
@@ -66,36 +171,68 @@ export default function PostsList() {
               alignItems: "center",
             }}
           >
-            <TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
               <Ionicons
                 name="heart-outline"
                 size={24}
                 color={colors.text}
                 style={{
-                  marginRight: 10,
+                  marginRight: 2,
                 }}
               />
+              <Text style={{ color: colors.text }}>
+                {count.length > 3
+                  ? count.slice(0, count.length - 3) + "k"
+                  : count}
+              </Text>
             </TouchableOpacity>
 
-            <TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                marginLeft: 15,
+              }}
+            >
               <AntDesign
                 name="like2"
                 size={24}
                 color={colors.text}
                 style={{
-                  marginRight: 10,
+                  marginRight: 2,
                 }}
               />
+              <Text style={{ color: colors.text }}>
+                {count.length > 3
+                  ? count.slice(0, count.length - 3) + "k"
+                  : count}
+              </Text>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                marginLeft: 15,
+              }}
+            >
               <AntDesign
                 name="dislike2"
                 size={24}
                 color={colors.text}
                 style={{
-                  marginRight: 10,
+                  marginRight: 2,
                 }}
               />
+              <Text style={{ color: colors.text }}>
+                {count.length > 3
+                  ? count.slice(0, count.length - 3) + "k"
+                  : count}
+              </Text>
             </TouchableOpacity>
           </View>
           <TouchableOpacity

@@ -1,4 +1,11 @@
-import { SafeAreaView, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React, { useEffect } from "react";
 import { useTheme } from "@/theme/ThemeProvider";
 import { fonts } from "@/constants/fonts";
@@ -11,14 +18,9 @@ export default function RegisterScreen({ navigation }: { navigation: any }) {
   useEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
-        <Ionicons
-          name="chevron-back-outline"
-          color={colors.text}
-          size={24}
-          onPress={() => {
-            navigation.goBack();
-          }}
-        />
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Ionicons name="chevron-back-outline" color={colors.text} size={24} />
+        </TouchableOpacity>
       ),
     });
   }, [navigation, dark]);

@@ -37,6 +37,7 @@ export default function AppNavigator() {
           options={{
             headerBackVisible: false,
             title: "Sign in",
+            headerTitleAlign: "center",
             headerStyle: {
               backgroundColor: colors.primary,
             },
@@ -57,6 +58,8 @@ export default function AppNavigator() {
             // headerShown: true,
             headerTitle: "Sign up",
             headerShadowVisible: false,
+            headerTitleAlign: "center",
+
             headerStyle: {
               backgroundColor: colors.primary,
             },
