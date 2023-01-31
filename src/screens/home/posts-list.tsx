@@ -4,8 +4,10 @@ import { Ionicons, AntDesign } from "@expo/vector-icons";
 import { useTheme } from "@/theme/ThemeProvider";
 import { styles } from "./styles";
 import { Modal } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
-export default function PostsList() {
+export default function PostsList({ id }: { id: number }) {
+  const navigation = useNavigation();
   const { colors, dark } = useTheme();
   const [showModal, setShowModal] = React.useState(false);
 
@@ -239,6 +241,12 @@ export default function PostsList() {
             style={{
               flexDirection: "row",
               alignItems: "center",
+            }}
+            onPress={() => {
+              // @ts-ignore
+              navigation.navigate("Post", {
+                postId: id,
+              } as any);
             }}
           >
             <Text style={{ color: colors.text }}>Read More</Text>

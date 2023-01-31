@@ -10,7 +10,7 @@ import React, { useEffect } from "react";
 import { useTheme } from "@/theme/ThemeProvider";
 import { fonts } from "@/constants/fonts";
 import { Button } from "@/components";
-import { Ionicons } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 
 export default function RegisterScreen({ navigation }: { navigation: any }) {
   const { colors, dark } = useTheme();
@@ -18,8 +18,16 @@ export default function RegisterScreen({ navigation }: { navigation: any }) {
   useEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Ionicons name="chevron-back-outline" color={colors.text} size={24} />
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={{
+            padding: 10,
+            backgroundColor: colors.cardBg,
+            borderRadius: 10,
+          }}
+        >
+          <Entypo name="chevron-thin-left" size={24} color={colors.text} />
+          {/* <Ionicons name="chevron-back-outline" color={colors.text} size={24} /> */}
         </TouchableOpacity>
       ),
     });

@@ -1,11 +1,39 @@
-import { ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
-import React from "react";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import React, { useEffect } from "react";
 import { useTheme } from "@/theme/ThemeProvider";
 import { fonts } from "@/constants/fonts";
 import { Button } from "@/components";
+import { useNavigation } from "@react-navigation/native";
+import { Entypo } from "@expo/vector-icons";
 
 export default function CreatePostScreen() {
+  const navigation = useNavigation();
   const { colors, dark } = useTheme();
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => (
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={{
+            padding: 10,
+            backgroundColor: colors.cardBg,
+            borderRadius: 10,
+          }}
+        >
+          <Entypo name="chevron-thin-left" size={24} color={colors.text} />
+          {/* <Ionicons name="chevron-back-outline" color={colors.text} size={24} /> */}
+        </TouchableOpacity>
+      ),
+    });
+  }, [dark, navigation]);
   return (
     <View
       style={{

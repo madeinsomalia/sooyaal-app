@@ -51,8 +51,16 @@ export default function SettingsScreen({ navigation }: { navigation: any }) {
   useEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
-        <TouchableOpacity onPress={() => navigation.goBack()}>
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={{
+            padding: 10,
+            backgroundColor: colors.cardBg,
+            borderRadius: 10,
+          }}
+        >
           <Entypo name="chevron-thin-left" size={24} color={colors.text} />
+          {/* <Ionicons name="chevron-back-outline" color={colors.text} size={24} /> */}
         </TouchableOpacity>
       ),
     });

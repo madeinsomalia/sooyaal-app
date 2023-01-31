@@ -64,7 +64,7 @@ export default function HomeScreen({ navigation }: any) {
           }}
         />
         {[...Array(10)].map((_, i) => {
-          return <PostsList key={i} />;
+          return <PostsList id={i + 1} key={i} />;
         })}
       </ScrollView>
 

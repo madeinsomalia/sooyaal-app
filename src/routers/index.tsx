@@ -16,6 +16,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { fonts } from "@/constants/fonts";
+import SinglePostScreen from "@/screens/single-post/single-post";
 
 const Stack = createNativeStackNavigator();
 
@@ -185,6 +186,23 @@ export default function AppNavigator() {
             // headerShadowVisible: false,
 
             // headerRight: () => <ToggleMode />,
+          }}
+        />
+
+        <Stack.Screen
+          name="Post"
+          component={SinglePostScreen}
+          options={{
+            // headerShown: false,
+            headerTitle: "",
+            headerStyle: {
+              backgroundColor: colors.primary,
+            },
+            headerTitleStyle: {
+              color: colors.text,
+            },
+
+            headerShadowVisible: false,
           }}
         />
       </Stack.Navigator>

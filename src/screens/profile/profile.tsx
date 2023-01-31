@@ -145,8 +145,16 @@ export default function ProfileScreen({
   useEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
-        <TouchableOpacity onPress={() => navigation.goBack()}>
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={{
+            padding: 10,
+            backgroundColor: colors.cardBg,
+            borderRadius: 10,
+          }}
+        >
           <Entypo name="chevron-thin-left" size={24} color={colors.text} />
+          {/* <Ionicons name="chevron-back-outline" color={colors.text} size={24} /> */}
         </TouchableOpacity>
       ),
     });
@@ -414,8 +422,8 @@ export default function ProfileScreen({
           />
         </View>
         {profileUser?.posts &&
-          profileUser?.posts.map((item: any) => {
-            return <PostsList key={item.id} />;
+          profileUser?.posts.map((item: any, i: number) => {
+            return <PostsList id={i + 1} key={item.id} />;
           })}
       </ScrollView>
     </View>
