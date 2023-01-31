@@ -7,7 +7,6 @@ import {
 } from "react-native";
 import React, { useEffect } from "react";
 import { useTheme } from "@/theme/ThemeProvider";
-import { Ionicons } from "@expo/vector-icons";
 import { styles } from "./styles";
 import PostsList from "./posts-list";
 
@@ -36,12 +35,15 @@ export default function HomeScreen({ navigation }: any) {
     });
   }, [dark, navigation]);
 
+  // const [clicked, setClicked] = React.useState(false);
+  // const [searchPhrase, setSearchPhrase] = React.useState("");
+
   //
   return (
     <SafeAreaView
       style={{
         ...styles.container,
-        backgroundColor: !dark ? "#f2f2f2" : colors.primary,
+        backgroundColor: colors.primary,
       }}
     >
       {/* card with posts using ScrollView */}
@@ -53,6 +55,12 @@ export default function HomeScreen({ navigation }: any) {
         }}
         showsVerticalScrollIndicator
       >
+        <View
+          style={{
+            backgroundColor: colors.secondary,
+            height: 15,
+          }}
+        />
         {[...Array(10)].map((_, i) => {
           return <PostsList key={i} />;
         })}

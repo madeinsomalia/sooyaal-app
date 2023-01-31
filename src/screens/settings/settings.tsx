@@ -5,15 +5,48 @@ import {
   TouchableOpacity,
   View,
   Image,
-  SectionList,
+  FlatList,
 } from "react-native";
 import React, { useEffect } from "react";
 import { useTheme } from "@/theme/ThemeProvider";
 import { fonts } from "@/constants/fonts";
-import { Entypo } from "@expo/vector-icons";
+import { Entypo, Ionicons } from "@expo/vector-icons";
+
+const sectionData = [
+  {
+    id: 1,
+    title: "Favourites",
+    icon: "heart-outline",
+  },
+  {
+    id: 2,
+    title: "Change Password",
+    icon: "lock-closed-outline",
+  },
+  {
+    id: 3,
+    title: "Notifications",
+    icon: "notifications-outline",
+  },
+  {
+    id: 4,
+    title: "Privacy & Security",
+    icon: "shield-checkmark-outline",
+  },
+  {
+    id: 5,
+    title: "About",
+    icon: "information-circle-outline",
+  },
+  {
+    id: 6,
+    title: "Help",
+    icon: "help-circle-outline",
+  },
+];
 
 export default function SettingsScreen({ navigation }: { navigation: any }) {
-  const { colors, dark } = useTheme();
+  const { colors, dark, setMode } = useTheme();
 
   useEffect(() => {
     navigation.setOptions({
@@ -60,33 +93,78 @@ export default function SettingsScreen({ navigation }: { navigation: any }) {
         </TouchableOpacity>
       </View>
 
-      <View>
-        <SectionList
-          style={{
-            ...styles.sectionList,
-            backgroundColor: colors.primary,
-          }}
-          sections={[
-            {
-              data: [
-                "Favourites",
-                "Change Password",
-                "Notifications",
-                "Privacy",
-                "Security",
-                "Data and storage",
-                "About",
-                "Help",
-              ],
-            },
-          ]}
+      <View
+        style={{
+          ...styles.sectionList,
+          backgroundColor: colors.primary,
+        }}
+      >
+        <FlatList
+          data={sectionData}
           renderItem={({ item }) => (
-            <TouchableOpacity style={{ padding: 10 }}>
-              <Text style={{ color: colors.text }}>{item}</Text>
+            <TouchableOpacity
+              style={{
+                padding: 10,
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
+              <Ionicons name={item.icon as any} size={24} color={colors.text} />
+              <Text style={{ color: colors.text, paddingLeft: 10 }}>
+                {item.title}
+              </Text>
             </TouchableOpacity>
           )}
-          keyExtractor={(item, index) => item + index}
         />
+        <View
+          style={{
+            height: 1,
+            backgroundColor: colors.text,
+            opacity: 0.1,
+            marginVertical: 10,
+            maxWidth: "100%",
+            marginHorizontal: 10,
+          }}
+        />
+        <View
+          style={{
+            flexDirection: "column",
+            // alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <TouchableOpacity
+            style={{ padding: 10, flexDirection: "row", alignItems: "center" }}
+            onPress={() => setMode(dark ? "light" : "dark")}
+          >
+            <Ionicons
+              name={dark ? "moon-outline" : "sunny-outline"}
+              size={24}
+              color={colors.text}
+            />
+            <Text style={{ color: colors.text, paddingLeft: 10 }}>
+              {dark ? "Dark Mode" : "Light Mode"}
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{ padding: 10, flexDirection: "row", alignItems: "center" }}
+          >
+            <Ionicons name="trash-outline" size={24} color={colors.text} />
+            <Text style={{ color: colors.text, paddingLeft: 10 }}>
+              {"Delete Account"}
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              padding: 10,
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <Ionicons name="log-out-outline" size={24} color={colors.text} />
+            <Text style={{ color: colors.text, paddingLeft: 10 }}>Logout</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </SafeAreaView>
   );

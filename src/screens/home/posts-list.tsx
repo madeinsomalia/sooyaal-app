@@ -12,11 +12,11 @@ export default function PostsList() {
       <View
         style={{
           ...styles.card,
-          backgroundColor: colors.primary,
+          backgroundColor: colors.cardBg,
           shadowColor: !dark ? colors.primary : "#030303",
         }}
       >
-        <View style={styles.content}>
+        <View style={styles.author}>
           <Text style={{ color: colors.text, fontSize: 15 }}>
             {"Abdi Zamed Mohamed"}
           </Text>
@@ -25,30 +25,39 @@ export default function PostsList() {
             <AntDesign name="ellipsis1" size={24} color={colors.text} />
           </TouchableOpacity>
         </View>
+
+        <View style={styles.content}>
+          <Text style={{ color: colors.text, fontSize: 20, marginTop: 10 }}>
+            Post
+          </Text>
+          <Text
+            style={{
+              color: colors.text,
+              fontSize: 15,
+              paddingTop: 10,
+              paddingBottom: 10,
+            }}
+          >
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis quod,
+            quia, voluptas, voluptate quas voluptates quibusdam voluptatum quae
+            quidem quos nesciunt. Quisquam, quae. Quisquam quae, quod quibusdam
+            quia quos voluptas.
+          </Text>
+        </View>
+
         <Image
           source={{
             uri: "https://www.traveltourxp.com/wp-content/uploads/2016/09/Attractions-Of-Somalia.jpg",
           }}
           style={styles.image}
         />
-        <Text style={{ color: colors.text, fontSize: 20 }}>Post</Text>
-        <Text
-          style={{
-            color: colors.text,
-            fontSize: 15,
-            paddingTop: 10,
-            paddingBottom: 10,
-          }}
-        >
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis quod,
-          quia, voluptas, voluptate quas voluptates quibusdam voluptatum quae
-          quidem quos nesciunt. Quisquam, quae. Quisquam quae, quod quibusdam
-          quia quos voluptas.
-        </Text>
+
         <View
           style={{
             flexDirection: "row",
             justifyContent: "space-between",
+            paddingHorizontal: 10,
+            marginBottom: 10,
           }}
         >
           <View
@@ -104,10 +113,12 @@ export default function PostsList() {
           </TouchableOpacity>
         </View>
       </View>
+
       <View
         style={{
-          height: 10,
-          backgroundColor: !dark ? "#f2f2f2" : colors.primary,
+          marginVertical: 0,
+          backgroundColor: colors.secondary,
+          height: 15,
         }}
       />
     </>

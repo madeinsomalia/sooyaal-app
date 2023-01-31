@@ -6,19 +6,6 @@ export const styles = StyleSheet.create({
     // alignItems: "center",
     paddingTop: Platform.OS === "android" ? 50 : 0,
   },
-  header: {
-    alignItems: "center",
-    justifyContent: "space-between",
-    flexDirection: "row",
-
-    marginHorizontal: 20,
-    marginTop: 25,
-    marginBottom: 15,
-  },
-  heading: {
-    fontSize: 30,
-    fontWeight: "bold",
-  },
 
   avatar: {
     width: 40,
@@ -27,38 +14,30 @@ export const styles = StyleSheet.create({
   },
 
   scrollView: {
-    paddingHorizontal: 25,
+    // paddingHorizontal: 25,
     marginTop: Platform.OS === "android" ? -40 : 10,
   },
-  content: {
+
+  author: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+    marginVertical: 10,
 
-    marginTop: 5,
-    marginBottom: 15,
+    paddingHorizontal: 10,
+  },
+  content: {
+    paddingHorizontal: 10,
   },
   card: {
     width: "100%",
     height: "auto",
-    borderRadius: 5,
-    marginTop: 10,
-    padding: 10,
-
-    shadowOffset: {
-      width: 0,
-      height: 7,
-    },
-    shadowOpacity: 0.41,
-    shadowRadius: 9.11,
-
-    elevation: 14,
   },
 
   image: {
     height: 200,
     width: undefined,
-    borderRadius: 2,
+    // borderRadius: 2,
     marginBottom: 10,
     flex: 1,
     resizeMode: "cover",

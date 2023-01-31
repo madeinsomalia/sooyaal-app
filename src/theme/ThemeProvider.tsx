@@ -16,7 +16,7 @@ const ThemeContext = createContext<IContextProps>({
 
 export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   const colorScheme = useColorScheme();
-  const [isDark, setIsDark] = useState(colorScheme == "dark");
+  const [isDark, setIsDark] = useState<boolean>(true);
 
   useEffect(() => {
     setIsDark(colorScheme == "dark");

@@ -9,11 +9,10 @@ import {
 } from "react-native";
 import React, { useEffect } from "react";
 import { useTheme } from "@/theme/ThemeProvider";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, Entypo, Feather } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import { fonts } from "@/constants/fonts";
 import { Button } from "@/components";
-import { Entypo } from "@expo/vector-icons";
 import PostsList from "../home/posts-list";
 
 const fakeUsers = [
@@ -198,13 +197,14 @@ export default function ProfileScreen({
         backgroundColor: colors.primary,
       }}
     >
-      <ScrollView style={{ marginTop: 10 }}>
+      <ScrollView style={{ marginTop: 10, backgroundColor: colors.primary }}>
         <TouchableOpacity
           style={{
             alignItems: "center",
             justifyContent: "center",
             height: 200,
-            backgroundColor: !dark ? "#e5e5e5" : "#11121a",
+            // backgroundColor: !dark ? "#e4e6eb" : "#3a3b3c",
+            backgroundColor: colors.secondary,
             //   colors.primary
             marginTop: 20,
             shadowColor: dark ? "#000" : "#d1d5db",
@@ -343,16 +343,21 @@ export default function ProfileScreen({
           </View>
           <TouchableOpacity
             style={{
-              backgroundColor: colors.primary,
+              backgroundColor: colors.secondary,
               padding: 10,
               borderRadius: 10,
+
+              flexDirection: "row",
+              alignItems: "center",
             }}
           >
+            <Feather name="edit" size={15} color={colors.text} />
             <Text
               style={{
                 color: colors.text,
                 fontFamily: fonts.primary.regular,
                 fontSize: 14,
+                marginLeft: 5,
               }}
             >
               Edit Profile
@@ -362,10 +367,7 @@ export default function ProfileScreen({
 
         <View
           style={{
-            borderRadius: 10,
             marginBottom: 10,
-            marginHorizontal: 10,
-
             marginTop: 20,
           }}
         >
@@ -401,21 +403,19 @@ export default function ProfileScreen({
               Create Post
             </Button>
           </View>
+
           <View
             style={{
-              width: "94%",
-              backgroundColor: colors.text,
-              height: 0.2,
-              marginTop: 15,
-
-              marginHorizontal: 10,
+              marginTop: 20,
+              backgroundColor: colors.secondary,
+              height: 15,
             }}
           />
-          {profileUser?.posts &&
-            profileUser?.posts.map((item: any) => {
-              return <PostsList />;
-            })}
         </View>
+        {profileUser?.posts &&
+          profileUser?.posts.map((item: any) => {
+            return <PostsList key={item.id} />;
+          })}
       </ScrollView>
     </View>
   );

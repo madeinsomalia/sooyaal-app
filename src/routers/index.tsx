@@ -1,5 +1,5 @@
 // import { fonts } from "@/constants/fonts";
-import { ToggleMode } from "@/components";
+// import { ToggleMode } from "@/components";
 import ShowFullScreenImage from "@/components/ShowFullScreenImage";
 import {
   CreatePostScreen,
@@ -13,9 +13,8 @@ import {
 import { useTheme } from "@/theme/ThemeProvider";
 import { Link, NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { View, Image, TouchableOpacity } from "react-native";
+import { View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { styles } from "@/screens/home/styles";
 import { fonts } from "@/constants/fonts";
 
 const Stack = createNativeStackNavigator();
@@ -47,7 +46,7 @@ export default function AppNavigator() {
             },
             headerShadowVisible: false,
 
-            headerRight: () => <ToggleMode />,
+            // headerRight: () => <ToggleMode />,
           }}
         />
 
@@ -66,7 +65,7 @@ export default function AppNavigator() {
               fontFamily: fonts.primary.regular,
             },
 
-            headerRight: () => <ToggleMode />,
+            // headerRight: () => <ToggleMode />,
           }}
         />
 
@@ -74,7 +73,6 @@ export default function AppNavigator() {
           name="Home"
           component={HomeScreen}
           options={{
-            headerShown: true,
             headerTitle: "",
             headerShadowVisible: false,
             headerStyle: {
@@ -82,10 +80,6 @@ export default function AppNavigator() {
             },
             headerTitleStyle: {
               color: colors.text,
-            },
-
-            headerSearchBarOptions: {
-              placeholder: "Search for posts",
             },
 
             headerRight: () => (
@@ -106,7 +100,7 @@ export default function AppNavigator() {
                     color={colors.text}
                   />
                 </Link>
-                <ToggleMode />
+                {/* <ToggleMode /> */}
               </View>
             ),
           }}
@@ -128,7 +122,7 @@ export default function AppNavigator() {
               fontFamily: fonts.primary.regular,
             },
             headerTitleAlign: "center",
-            headerRight: () => <ToggleMode />,
+            // headerRight: () => <ToggleMode />,
           }}
         />
 
@@ -148,7 +142,7 @@ export default function AppNavigator() {
             headerShadowVisible: false,
             headerBackTitle: "",
 
-            headerRight: () => <ToggleMode />,
+            // headerRight: () => <ToggleMode />,
           }}
           initialParams={{
             userId: "1",
@@ -187,7 +181,7 @@ export default function AppNavigator() {
             headerTitleAlign: "center",
             // headerShadowVisible: false,
 
-            headerRight: () => <ToggleMode />,
+            // headerRight: () => <ToggleMode />,
           }}
         />
       </Stack.Navigator>
