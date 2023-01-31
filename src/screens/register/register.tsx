@@ -22,7 +22,7 @@ export default function RegisterScreen({ navigation }: { navigation: any }) {
           onPress={() => navigation.goBack()}
           style={{
             padding: 10,
-            backgroundColor: colors.cardBg,
+            backgroundColor: dark ? colors.cardBg : colors.secondary,
             borderRadius: 10,
           }}
         >

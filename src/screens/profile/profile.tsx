@@ -149,7 +149,7 @@ export default function ProfileScreen({
           onPress={() => navigation.goBack()}
           style={{
             padding: 10,
-            backgroundColor: colors.cardBg,
+            backgroundColor: dark ? colors.cardBg : colors.secondary,
             borderRadius: 10,
           }}
         >
@@ -211,7 +211,7 @@ export default function ProfileScreen({
             alignItems: "center",
             justifyContent: "center",
             height: 200,
-            backgroundColor: dark ? colors.cardBg : "#e4e6eb",
+            backgroundColor: dark ? colors.cardBg : colors.secondary,
             //   colors.primary
             marginTop: 20,
           }}

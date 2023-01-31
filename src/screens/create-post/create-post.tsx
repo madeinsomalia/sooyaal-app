@@ -24,7 +24,7 @@ export default function CreatePostScreen() {
           onPress={() => navigation.goBack()}
           style={{
             padding: 10,
-            backgroundColor: colors.cardBg,
+            backgroundColor: dark ? colors.cardBg : colors.secondary,
             borderRadius: 10,
           }}
         >
