@@ -10,7 +10,8 @@ import {
 import React, { useEffect } from "react";
 import { useTheme } from "@/theme/ThemeProvider";
 import { fonts } from "@/constants/fonts";
-import { Entypo, Ionicons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
+import { BackIcon } from "@/components";
 
 const sectionData = [
   {
@@ -50,19 +51,7 @@ export default function SettingsScreen({ navigation }: { navigation: any }) {
 
   useEffect(() => {
     navigation.setOptions({
-      headerLeft: () => (
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={{
-            padding: 10,
-            backgroundColor: dark ? colors.cardBg : colors.secondary,
-            borderRadius: 10,
-          }}
-        >
-          <Entypo name="chevron-thin-left" size={24} color={colors.text} />
-          {/* <Ionicons name="chevron-back-outline" color={colors.text} size={24} /> */}
-        </TouchableOpacity>
-      ),
+      headerLeft: () => <BackIcon navigation={navigation} />,
     });
   }, [dark, navigation]);
 

@@ -4,15 +4,14 @@ import {
   Image,
   TouchableOpacity,
   Platform,
-  Linking,
   ScrollView,
 } from "react-native";
 import React, { useEffect } from "react";
 import { useTheme } from "@/theme/ThemeProvider";
-import { Ionicons, Entypo, Feather } from "@expo/vector-icons";
+import { Ionicons, Feather } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import { fonts } from "@/constants/fonts";
-import { Button } from "@/components";
+import { BackIcon, Button } from "@/components";
 import PostsList from "../home/posts-list";
 
 const fakeUsers = [
@@ -144,19 +143,7 @@ export default function ProfileScreen({
   const { colors, dark } = useTheme();
   useEffect(() => {
     navigation.setOptions({
-      headerLeft: () => (
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={{
-            padding: 10,
-            backgroundColor: dark ? colors.cardBg : colors.secondary,
-            borderRadius: 10,
-          }}
-        >
-          <Entypo name="chevron-thin-left" size={24} color={colors.text} />
-          {/* <Ionicons name="chevron-back-outline" color={colors.text} size={24} /> */}
-        </TouchableOpacity>
-      ),
+      headerLeft: () => <BackIcon navigation={navigation} />,
     });
   }, [dark, navigation]);
   // search for the user
