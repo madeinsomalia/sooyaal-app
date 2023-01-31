@@ -211,18 +211,9 @@ export default function ProfileScreen({
             alignItems: "center",
             justifyContent: "center",
             height: 200,
-            // backgroundColor: !dark ? "#e4e6eb" : "#3a3b3c",
-            backgroundColor: colors.secondary,
+            backgroundColor: dark ? colors.cardBg : "#e4e6eb",
             //   colors.primary
             marginTop: 20,
-            shadowColor: dark ? "#000" : "#d1d5db",
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.41,
-            shadowRadius: 92.11,
-            elevation: 14,
           }}
         >
           <View
