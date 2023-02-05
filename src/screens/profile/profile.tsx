@@ -12,126 +12,7 @@ import { Ionicons, Feather } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import { fonts } from "@/constants/fonts";
 import { BackIcon, Button } from "@/components";
-import PostsList from "../home/posts-list";
-
-const fakeUsers = [
-  {
-    id: 1,
-    name: "John Doe",
-    username: "johndoe",
-    email: "john@gmail.com",
-    phone: "1234567890",
-  },
-  {
-    id: 2,
-    name: "Jane Doe",
-    username: "janedoe",
-    email: "jane@gmail.com",
-    phone: "1234567890",
-  },
-];
-
-const fakeProfileUsers = [
-  {
-    userId: 1,
-    website: "https://johndoe.com",
-    photoURL: "https://avatars.githubusercontent.com/u/96237528?v=4",
-    bio: "I am John Doe",
-    address: {
-      street: "123 Main St",
-      city: "New York",
-      zipcode: "12345",
-    },
-    dateOfBirth: "1990-01-01",
-    education: [
-      {
-        school: "University of California",
-        degree: "Bachelors",
-        fieldOfStudy: "Computer Science",
-        from: "2010-01-01",
-        to: "2014-01-01",
-      },
-      {
-        school: "University of California",
-        degree: "Masters",
-        fieldOfStudy: "Computer Science",
-        from: "2014-01-01",
-        to: "2016-01-01",
-      },
-    ],
-    posts: [
-      {
-        id: 1,
-        title: "Post 1",
-        image: "https://picsum.photos/200/300",
-        content: "Post 1 content content, content, content, content .content",
-        likes: 10,
-        comments: 5,
-        shares: 2,
-        createdAt: "2020-01-01",
-      },
-      {
-        id: 2,
-        title: "Post 2",
-        image: "https://picsum.photos/200/300",
-
-        content: "Post 2 content content, content, content, content .content",
-        likes: 10,
-        comments: 5,
-        shares: 2,
-        createdAt: "2020-01-01",
-      },
-    ],
-  },
-  {
-    userId: 2,
-    website: "https://janedoe.com",
-    photoURL: "https://avatars.githubusercontent.com/u/98351506?v=4",
-    bio: "I am Jane Doe",
-    address: {
-      street: "123 Main St",
-      city: "New York",
-      zipcode: "12345",
-    },
-    dateOfBirth: "1990-01-01",
-    education: [
-      {
-        school: "University of California",
-        degree: "Bachelors",
-        fieldOfStudy: "Computer Science",
-        from: "2010-01-01",
-        to: "2014-01-01",
-      },
-      {
-        school: "University of California",
-        degree: "Masters",
-        fieldOfStudy: "Computer Science",
-        from: "2014-01-01",
-        to: "2016-01-01",
-      },
-    ],
-    posts: [
-      {
-        id: 1,
-        title: "Post 1",
-        content: "Post 1 content content, content, content, content .content",
-        likes: 10,
-        comments: 5,
-        shares: 2,
-        createdAt: "2020-01-01",
-      },
-      {
-        id: 2,
-        title: "Post 2",
-        content: "Post 2 content content, content, content, content .content",
-        likes: 10,
-        comments: 5,
-        shares: 2,
-        createdAt: "2020-01-01",
-      },
-    ],
-  },
-];
+import useAuth from "@/hooks/useAuth";
 
 export default function ProfileScreen({
   navigation,
@@ -141,21 +22,16 @@ export default function ProfileScreen({
   route: any;
 }) {
   const { colors, dark } = useTheme();
+  const { user } = useAuth();
+
   useEffect(() => {
     navigation.setOptions({
       headerLeft: () => <BackIcon navigation={navigation} />,
     });
   }, [dark, navigation]);
-  // search for the user
-  const user = fakeUsers.find((user) => user.id == route.params.userId);
-  // search for the profile user
-  const profileUser = fakeProfileUsers.find(
-    (profileUser) => profileUser.userId === user?.id
-  );
 
   const userInfo = {
     ...user,
-    ...profileUser,
   };
 
   const pickImage = async () => {
@@ -179,9 +55,9 @@ export default function ProfileScreen({
   };
 
   const openFullScreenImage = () => {
-    profileUser?.photoURL &&
+    user?.photoURL &&
       navigation.navigate("FullScreenImage", {
-        image: profileUser?.photoURL as string,
+        image: user?.photoURL as string,
       });
   };
 
@@ -262,7 +138,7 @@ export default function ProfileScreen({
             }}
           >
             <Image
-              source={{ uri: profileUser?.photoURL }}
+              source={{ uri: user?.photoURL }}
               style={{
                 height: 120,
                 width: 120,
@@ -399,10 +275,10 @@ export default function ProfileScreen({
             }}
           />
         </View>
-        {profileUser?.posts &&
+        {/* {profileUser?.posts &&
           profileUser?.posts.map((item: any, i: number) => {
             return <PostsList id={i + 1} key={item.id} />;
-          })}
+          })} */}
       </ScrollView>
     </View>
   );

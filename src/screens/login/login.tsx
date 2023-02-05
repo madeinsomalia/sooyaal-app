@@ -1,11 +1,53 @@
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React from "react";
 import { useTheme } from "@/theme/ThemeProvider";
 import { fonts } from "@/constants/fonts";
 import { Button } from "@/components";
+import { Formik } from "formik";
+import { validationSchema } from "@/validations/auth";
+import { Ionicons } from "@expo/vector-icons";
+import { login } from "@/features/auth/auth.api";
+import { useAppDispatch } from "@/app/store";
+import { Toast } from "react-native-toast-message/lib/src/Toast";
+
+interface LoginState {
+  email: string;
+  password: string;
+}
+
+const initialState: LoginState = {
+  email: "",
+  password: "",
+};
 
 export default function LoginScreen({ navigation }: { navigation: any }) {
   const { colors } = useTheme();
+  const [showPassword, setShowPassword] = React.useState(false);
+  const dispatch = useAppDispatch();
+
+  const handleSubmit = async (values: LoginState) => {
+    const res = await dispatch(login(values));
+    if (res.type !== "auth/login/fulfilled") {
+      Toast.show({
+        type: "error",
+        text1: "Error",
+        text2: res.payload,
+        visibilityTime: 4000,
+        autoHide: true,
+        // topOffset: 30,
+        position: "bottom",
+      });
+    }
+
+    // () => navigation.navigate("Home")
+  };
+
   return (
     <View
       style={{
@@ -22,43 +64,91 @@ export default function LoginScreen({ navigation }: { navigation: any }) {
         Sooyaal
       </Text>
 
-      <View style={styles.inputContainer}>
-        <TextInput
-          keyboardType="email-address"
-          autoComplete="email"
-          autoCorrect={false}
-          autoCapitalize="none"
-          placeholder="Email"
-          style={{
-            ...styles.input,
-            color: colors.text,
-            backgroundColor: colors.primary,
-            borderBottomColor: colors.text,
-          }}
-          placeholderTextColor={colors.text}
-        />
-        <TextInput
-          autoCapitalize="none"
-          autoComplete="password"
-          autoCorrect={false}
-          // keyboardType="visible-password"
-          placeholder="Password"
-          style={{
-            ...styles.input,
-            color: colors.text,
-            backgroundColor: colors.primary,
-            borderBottomColor: colors.text,
-          }}
-          placeholderTextColor={colors.text}
-          secureTextEntry={true}
-        />
-      </View>
+      <Formik
+        initialValues={initialState}
+        validationSchema={validationSchema}
+        onSubmit={(values) => handleSubmit(values)}
+      >
+        {({
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          values,
+          errors,
+          touched,
+        }) => (
+          <>
+            <View style={styles.inputContainer}>
+              <TextInput
+                keyboardType="email-address"
+                autoComplete="email"
+                autoCorrect={false}
+                autoCapitalize="none"
+                placeholder="Email"
+                style={{
+                  ...styles.input,
+                  color: colors.text,
+                  backgroundColor: colors.primary,
+                  borderBottomColor: colors.text,
 
-      <View>
-        <Button variant="contained" onPress={() => navigation.navigate("Home")}>
-          Login
-        </Button>
-      </View>
+                  ...(errors.email && touched.email ? styles.inputError : {}),
+                }}
+                placeholderTextColor={colors.text}
+                onChangeText={handleChange("email")}
+                onBlur={handleBlur("email")}
+                value={values.email}
+              />
+              <TextInput
+                autoCapitalize="none"
+                autoComplete="password"
+                autoCorrect={false}
+                // keyboardType="visible-password"
+                placeholder="Password"
+                style={{
+                  ...styles.input,
+                  color: colors.text,
+                  backgroundColor: colors.primary,
+                  borderBottomColor: colors.text,
+
+                  ...(errors.password && touched.password
+                    ? styles.inputError
+                    : {}),
+                }}
+                placeholderTextColor={colors.text}
+                secureTextEntry={!showPassword}
+                onChangeText={handleChange("password")}
+                onBlur={handleBlur("password")}
+                value={values.password}
+              />
+              <TouchableOpacity
+                style={{
+                  position: "absolute",
+                  right: 5,
+                  // top: 10,
+                  bottom: 20,
+                }}
+                onPress={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? (
+                  <Ionicons
+                    name="eye-off-outline"
+                    size={20}
+                    color={colors.text}
+                  />
+                ) : (
+                  <Ionicons name="eye-outline" size={20} color={colors.text} />
+                )}
+              </TouchableOpacity>
+            </View>
+
+            <View>
+              <Button variant="contained" onPress={handleSubmit}>
+                Login
+              </Button>
+            </View>
+          </>
+        )}
+      </Formik>
 
       <View
         style={{
@@ -109,5 +199,9 @@ const styles = StyleSheet.create({
     fontFamily: fonts.primary.regular,
     fontSize: 16,
     borderBottomWidth: 0.4,
+  },
+
+  inputError: {
+    borderBottomColor: "red",
   },
 });

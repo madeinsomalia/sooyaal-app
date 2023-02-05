@@ -4,16 +4,21 @@ import {
   View,
   TouchableOpacity,
   ScrollView,
+  RefreshControl,
 } from "react-native";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useTheme } from "@/theme/ThemeProvider";
 import { styles } from "./styles";
 import PostsList from "./posts-list";
 import { Button } from "@/components";
 import { Ionicons } from "@expo/vector-icons";
+import useAuth from "@/hooks/useAuth";
 
 export default function HomeScreen({ navigation }: any) {
   const { colors, dark } = useTheme();
+  const { user } = useAuth();
+
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
     navigation.setOptions({
@@ -27,7 +32,7 @@ export default function HomeScreen({ navigation }: any) {
           <Image
             source={{
               uri:
-                "https://www.github.com/aaqyaar.png" ||
+                user?.photoURL ||
                 "https://www.moveo.it/wp-content/uploads/2018/10/empty-avatar.png",
             }}
             style={styles.avatar}
@@ -39,7 +44,12 @@ export default function HomeScreen({ navigation }: any) {
 
   // const [clicked, setClicked] = React.useState(false);
   // const [searchPhrase, setSearchPhrase] = React.useState("");
-
+  const pullMe = () => {
+    setRefresh(true);
+    setTimeout(() => {
+      setRefresh(false);
+    }, 3000);
+  };
   //
   return (
     <SafeAreaView
@@ -50,6 +60,9 @@ export default function HomeScreen({ navigation }: any) {
     >
       {/* card with posts using ScrollView */}
       <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refresh} onRefresh={() => pullMe()} />
+        }
         style={styles.scrollView}
         contentContainerStyle={{
           padding: 0,

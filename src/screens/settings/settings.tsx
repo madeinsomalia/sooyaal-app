@@ -12,6 +12,9 @@ import { useTheme } from "@/theme/ThemeProvider";
 import { fonts } from "@/constants/fonts";
 import { Ionicons } from "@expo/vector-icons";
 import { BackIcon } from "@/components";
+import { useAppDispatch } from "@/app/store";
+import { logout } from "@/features/auth/auth.slice";
+import useAuth from "@/hooks/useAuth";
 
 const sectionData = [
   {
@@ -48,6 +51,7 @@ const sectionData = [
 
 export default function SettingsScreen({ navigation }: { navigation: any }) {
   const { colors, dark, setMode } = useTheme();
+  const { user } = useAuth();
 
   useEffect(() => {
     navigation.setOptions({
@@ -55,6 +59,11 @@ export default function SettingsScreen({ navigation }: { navigation: any }) {
     });
   }, [dark, navigation]);
 
+  const dispatch = useAppDispatch();
+
+  const handeLogout = async () => {
+    await dispatch(logout());
+  };
   return (
     <SafeAreaView
       style={{
@@ -73,7 +82,9 @@ export default function SettingsScreen({ navigation }: { navigation: any }) {
         >
           <Image
             source={{
-              uri: "https://avatars.githubusercontent.com/u/98351506?v=4",
+              uri:
+                user?.photoURL ||
+                "https://www.moveo.it/wp-content/uploads/2018/10/empty-avatar.png",
             }}
             style={styles.avatar}
           />
@@ -85,7 +96,7 @@ export default function SettingsScreen({ navigation }: { navigation: any }) {
               marginStart: 10,
             }}
           >
-            {"Abdi Zamed Mohamed"}
+            {user?.name}
           </Text>
         </TouchableOpacity>
       </View>
@@ -157,6 +168,7 @@ export default function SettingsScreen({ navigation }: { navigation: any }) {
               flexDirection: "row",
               alignItems: "center",
             }}
+            onPress={handeLogout}
           >
             <Ionicons name="log-out-outline" size={24} color={colors.text} />
             <Text style={{ color: colors.text, paddingLeft: 10 }}>Logout</Text>
