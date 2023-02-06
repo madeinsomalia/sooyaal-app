@@ -1,8 +1,14 @@
 import { useTheme } from "@/theme/ThemeProvider";
 import React from "react";
-import { TouchableOpacity, Text, StyleProp } from "react-native";
+import {
+  TouchableOpacity,
+  Text,
+  StyleProp,
+  ActivityIndicator,
+} from "react-native";
 
 interface IButtonProps {
+  loading?: boolean;
   children: React.ReactNode;
   variant: "outlined" | "contained" | "text";
   onPress?: () => void;
@@ -10,6 +16,7 @@ interface IButtonProps {
 }
 
 export default function Button({
+  loading,
   children,
   variant,
   style,
@@ -25,7 +32,7 @@ export default function Button({
     },
     contained: {
       backgroundColor: colors.text,
-      borderRadius: 5,
+      borderRadius: 50,
     },
     text: {
       backgroundColor: colors.primary,
@@ -37,30 +44,35 @@ export default function Button({
     alignItems: "center",
     justifyContent: "center",
     padding: 15,
+    opacity: 0.8,
   };
   return (
     <TouchableOpacity
-      onPress={onPress}
+      onPress={!loading ? onPress : undefined}
       style={{
         ...defaultBtnStyles,
         ...styles[variant],
         ...style,
       }}
     >
-      <Text
-        style={{
-          color:
-            variant === "outlined"
-              ? colors.text
-              : variant === "contained"
-              ? colors.primary
-              : variant === "text"
-              ? colors.text
-              : colors.primary,
-        }}
-      >
-        {children}
-      </Text>
+      {loading ? (
+        <ActivityIndicator color={colors.primary} />
+      ) : (
+        <Text
+          style={{
+            color:
+              variant === "outlined"
+                ? colors.text
+                : variant === "contained"
+                ? colors.primary
+                : variant === "text"
+                ? colors.text
+                : colors.primary,
+          }}
+        >
+          {children}
+        </Text>
+      )}
     </TouchableOpacity>
   );
 }

@@ -5,14 +5,18 @@ import {
   TouchableOpacity,
   ScrollView,
   RefreshControl,
+  Text,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useTheme } from "@/theme/ThemeProvider";
 import { styles } from "./styles";
 import PostsList from "./posts-list";
 import { Button } from "@/components";
 import { Ionicons } from "@expo/vector-icons";
 import useAuth from "@/hooks/useAuth";
+// import ShimmerPlaceholder from "react-native-shimmer-placeholder";
+// import LinearGradient from "expo-linear-gradient";
+// import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 
 export default function HomeScreen({ navigation }: any) {
   const { colors, dark } = useTheme();
@@ -40,7 +44,7 @@ export default function HomeScreen({ navigation }: any) {
         </TouchableOpacity>
       ),
     });
-  }, [dark, navigation]);
+  }, [user, dark, navigation]);
 
   // const [clicked, setClicked] = React.useState(false);
   // const [searchPhrase, setSearchPhrase] = React.useState("");
@@ -77,7 +81,11 @@ export default function HomeScreen({ navigation }: any) {
           }}
         />
         {[...Array(10)].map((_, i) => {
-          return <PostsList id={i + 1} key={i} />;
+          return (
+            <Fragment key={i}>
+              <PostsList key={i} id={i} />
+            </Fragment>
+          );
         })}
       </ScrollView>
 

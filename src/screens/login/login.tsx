@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { useTheme } from "@/theme/ThemeProvider";
 import { fonts } from "@/constants/fonts";
 import { Button } from "@/components";
@@ -30,8 +30,11 @@ export default function LoginScreen({ navigation }: { navigation: any }) {
   const { colors } = useTheme();
   const [showPassword, setShowPassword] = React.useState(false);
   const dispatch = useAppDispatch();
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleSubmit = async (values: LoginState) => {
+    navigation.navigate("Home");
+    setLoading(true);
     const res = await dispatch(login(values));
     if (res.type !== "auth/login/fulfilled") {
       Toast.show({
@@ -44,6 +47,7 @@ export default function LoginScreen({ navigation }: { navigation: any }) {
         position: "bottom",
       });
     }
+    setLoading(false);
 
     // () => navigation.navigate("Home")
   };
@@ -89,8 +93,8 @@ export default function LoginScreen({ navigation }: { navigation: any }) {
                   ...styles.input,
                   color: colors.text,
                   backgroundColor: colors.primary,
-                  borderBottomColor: colors.text,
-
+                  borderColor: colors.text,
+                  paddingLeft: 40,
                   ...(errors.email && touched.email ? styles.inputError : {}),
                 }}
                 placeholderTextColor={colors.text}
@@ -98,51 +102,85 @@ export default function LoginScreen({ navigation }: { navigation: any }) {
                 onBlur={handleBlur("email")}
                 value={values.email}
               />
-              <TextInput
-                autoCapitalize="none"
-                autoComplete="password"
-                autoCorrect={false}
-                // keyboardType="visible-password"
-                placeholder="Password"
-                style={{
-                  ...styles.input,
-                  color: colors.text,
-                  backgroundColor: colors.primary,
-                  borderBottomColor: colors.text,
-
-                  ...(errors.password && touched.password
-                    ? styles.inputError
-                    : {}),
-                }}
-                placeholderTextColor={colors.text}
-                secureTextEntry={!showPassword}
-                onChangeText={handleChange("password")}
-                onBlur={handleBlur("password")}
-                value={values.password}
-              />
-              <TouchableOpacity
+              <Ionicons
+                name="mail-outline"
+                size={20}
+                color={colors.text}
                 style={{
                   position: "absolute",
-                  right: 5,
-                  // top: 10,
-                  bottom: 20,
+                  left: 10,
+                  top: 15,
                 }}
-                onPress={() => setShowPassword(!showPassword)}
-              >
-                {showPassword ? (
-                  <Ionicons
-                    name="eye-off-outline"
-                    size={20}
-                    color={colors.text}
-                  />
-                ) : (
-                  <Ionicons name="eye-outline" size={20} color={colors.text} />
-                )}
-              </TouchableOpacity>
+              />
+              <View>
+                <TextInput
+                  autoCapitalize="none"
+                  autoComplete="password"
+                  autoCorrect={false}
+                  // keyboardType="visible-password"
+                  placeholder="Password"
+                  style={{
+                    ...styles.input,
+                    color: colors.text,
+                    backgroundColor: colors.primary,
+                    borderColor: colors.text,
+                    position: "relative",
+                    paddingLeft: 40,
+                    ...(errors.password && touched.password
+                      ? styles.inputError
+                      : {}),
+                  }}
+                  placeholderTextColor={colors.text}
+                  secureTextEntry={!showPassword}
+                  onChangeText={handleChange("password")}
+                  onBlur={handleBlur("password")}
+                  value={values.password}
+                />
+                <Ionicons
+                  name="key-outline"
+                  size={20}
+                  color={colors.text}
+                  style={{
+                    position: "absolute",
+                    left: 10,
+                    top: 15,
+                  }}
+                />
+                <TouchableOpacity
+                  style={{
+                    position: "absolute",
+                    right: 10,
+                    // top: 10,
+                    bottom: 28,
+                  }}
+                  onPress={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? (
+                    <Ionicons
+                      name="eye-off-outline"
+                      size={20}
+                      color={colors.text}
+                    />
+                  ) : (
+                    <Ionicons
+                      name="eye-outline"
+                      size={20}
+                      color={colors.text}
+                    />
+                  )}
+                </TouchableOpacity>
+              </View>
             </View>
 
             <View>
-              <Button variant="contained" onPress={handleSubmit}>
+              <Button
+                style={{
+                  opacity: 0.8,
+                }}
+                loading={loading}
+                variant="contained"
+                onPress={handleSubmit}
+              >
                 Login
               </Button>
             </View>
@@ -158,6 +196,7 @@ export default function LoginScreen({ navigation }: { navigation: any }) {
           width: "100%",
           // alignItems: "center",
           paddingHorizontal: 10,
+          opacity: 0.8,
         }}
       >
         <Button variant="text" onPress={() => navigation.navigate("Register")}>
@@ -188,6 +227,7 @@ const styles = StyleSheet.create({
     marginBottom: 25,
     letterSpacing: 1,
     textAlign: "center",
+    opacity: 0.8,
   },
   inputContainer: {
     marginBottom: 10,
@@ -198,10 +238,14 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     fontFamily: fonts.primary.regular,
     fontSize: 16,
-    borderBottomWidth: 0.4,
+    borderWidth: 0.7,
+    opacity: 0.4,
+    paddingHorizontal: 10,
+    borderRadius: 10,
   },
 
   inputError: {
-    borderBottomColor: "red",
+    borderColor: "red",
+    borderWidth: 0.7,
   },
 });
