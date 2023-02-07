@@ -1,11 +1,4 @@
-import {
-  ScrollView,
-  StyleSheet,
-  Image,
-  View,
-  Text,
-  TouchableOpacity,
-} from "react-native";
+import { ScrollView, Image, View, Text, TouchableOpacity } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { useTheme } from "@/theme/ThemeProvider";
 // import { fonts } from "@/constants/fonts";
@@ -14,11 +7,13 @@ import { useNavigation } from "@react-navigation/native";
 import * as MediaLibrary from "expo-media-library";
 import { Camera, CameraType } from "expo-camera";
 import { Ionicons } from "@expo/vector-icons";
+import styles from "./styles";
 
 export default function CreatePostScreen() {
   const navigation = useNavigation();
   const { colors, dark } = useTheme();
   const [images, setImages] = useState<any[]>([]);
+  const [image, setImage] = useState([]);
   const [type, setType] = useState(CameraType.back);
   const [permission, requestPermission] = Camera.useCameraPermissions();
   const ref = useRef<any>(null);
@@ -81,7 +76,11 @@ export default function CreatePostScreen() {
 
   const _takePhoto = async () => {
     const photo = await ref.current.takePictureAsync();
-    console.debug(photo);
+    setImage(photo.uri);
+  };
+
+  const clickedPhoto = (photo: string) => {
+    console.log(photo);
   };
 
   return (
@@ -120,25 +119,14 @@ export default function CreatePostScreen() {
               ) : (
                 <Ionicons name="camera-outline" size={24} color={colors.text} />
               )}
-
-              <Text style={styles.text}>Flip Camera</Text>
             </TouchableOpacity>
           </View>
 
           {/* Take the photo in the camera */}
           <TouchableOpacity
             style={{
-              width: 60,
-              height: 60,
-              // backgroundColor: "#f0f0f0",
-              borderRadius: 50,
+              ...styles.takePhoto,
               backgroundColor: dark ? colors.cardBg : colors.secondary,
-              flexDirection: "row",
-              justifyContent: "center",
-              alignItems: "center",
-              marginTop: 10,
-
-              alignSelf: "center",
             }}
             onPress={_takePhoto}
           >
@@ -162,6 +150,7 @@ export default function CreatePostScreen() {
                 marginTop: 10,
                 marginRight: 10,
               }}
+              onPress={() => clickedPhoto(image.uri)}
             >
               <Image
                 source={{ uri: image.uri }}
@@ -174,36 +163,3 @@ export default function CreatePostScreen() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  camera: {
-    width: "100%",
-    height: 500,
-    // backgroundColor: "#f0f0f0",
-    marginVertical: 10,
-  },
-  buttonContainer: {
-    flex: 1,
-    backgroundColor: "transparent",
-    flexDirection: "row",
-    margin: 20,
-  },
-  button: {
-    // flex: 0.1,
-    alignSelf: "flex-end",
-    alignItems: "center",
-    flexDirection: "row",
-  },
-  text: {
-    fontSize: 18,
-    color: "white",
-    marginLeft: 5,
-  },
-
-  image: {
-    width: "100%",
-    height: 250,
-    backgroundColor: "#f0f0f0",
-    marginVertical: 10,
-  },
-});

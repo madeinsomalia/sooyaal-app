@@ -33,7 +33,6 @@ export default function LoginScreen({ navigation }: { navigation: any }) {
   const [loading, setLoading] = useState<boolean>(false);
 
   const handleSubmit = async (values: LoginState) => {
-    navigation.navigate("Home");
     setLoading(true);
     const res = await dispatch(login(values));
     if (res.type !== "auth/login/fulfilled") {
