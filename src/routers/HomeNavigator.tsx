@@ -124,6 +124,7 @@ export default function AppNavigator() {
           headerStyle: {
             backgroundColor: colors.primary,
           },
+          headerShadowVisible: false,
           headerTitleStyle: {
             color: colors.text,
             fontFamily: fonts.primary.regular,
@@ -133,7 +134,34 @@ export default function AppNavigator() {
 
           // headerRight: () => <ToggleMode />,
         }}
+        initialParams={{
+          step: 1,
+        }}
       />
+
+      {/* <Stack.Screen
+        name="CreatePostContent"
+        component={CreatePostScreen}
+        options={{
+          // headerShown: false,
+          headerTitle: "Create a Post",
+          headerStyle: {
+            backgroundColor: colors.primary,
+          },
+          headerShadowVisible: false,
+          headerTitleStyle: {
+            color: colors.text,
+            fontFamily: fonts.primary.regular,
+          },
+          headerTitleAlign: "center",
+          // headerShadowVisible: false,
+
+          // headerRight: () => <ToggleMode />,
+        }}
+        initialParams={{
+          step: 2,
+        }}
+      /> */}
 
       <Stack.Screen
         name="Post"

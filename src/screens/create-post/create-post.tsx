@@ -1,4 +1,11 @@
-import { ScrollView, Image, View, Text, TouchableOpacity } from "react-native";
+import {
+  ScrollView,
+  Image,
+  View,
+  Text,
+  TouchableOpacity,
+  TextInput,
+} from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { useTheme } from "@/theme/ThemeProvider";
 // import { fonts } from "@/constants/fonts";
@@ -6,11 +13,20 @@ import { BackIcon, Button } from "@/components";
 import { useNavigation } from "@react-navigation/native";
 import * as MediaLibrary from "expo-media-library";
 import { Camera, CameraType } from "expo-camera";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, Entypo } from "@expo/vector-icons";
 import styles from "./styles";
 
-export default function CreatePostScreen() {
-  const navigation = useNavigation();
+let content:
+  | string
+  | number
+  | boolean
+  | React.ReactFragment
+  | JSX.Element
+  | null
+  | undefined = null;
+
+export default function CreatePostScreen({ route }: { route: any }) {
+  const navigation: any = useNavigation();
   const { colors, dark } = useTheme();
   const [images, setImages] = useState<any[]>([]);
   const [image, setImage] = useState([]);
@@ -34,7 +50,39 @@ export default function CreatePostScreen() {
   };
   useEffect(() => {
     navigation.setOptions({
-      headerLeft: () => <BackIcon navigation={navigation} />,
+      headerLeft: () => (
+        <TouchableOpacity
+          onPress={() => {
+            route.params.step != 2
+              ? navigation.goBack()
+              : navigation.setParams({ step: 1 });
+          }}
+          style={{
+            padding: 10,
+            backgroundColor: dark ? colors.cardBg : colors.secondary,
+            borderRadius: 10,
+          }}
+        >
+          <Entypo name="chevron-thin-left" size={24} color={colors.text} />
+        </TouchableOpacity>
+      ),
+
+      headerRight: () => (
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("Home");
+          }}
+          style={{
+            padding: 10,
+            backgroundColor: dark ? colors.cardBg : colors.secondary,
+            borderRadius: 10,
+          }}
+        >
+          {/* save tick icon */}
+
+          <Entypo name="check" size={24} color={colors.text} />
+        </TouchableOpacity>
+      ),
     });
     findImages();
   }, [dark, navigation]);
@@ -76,22 +124,19 @@ export default function CreatePostScreen() {
 
   const _takePhoto = async () => {
     const photo = await ref.current.takePictureAsync();
-    setImage(photo.uri);
+    photo.uri = photo.uri.replace("file://", "");
+    navigation.setParams({ step: 2, photo: photo.uri });
   };
 
   const clickedPhoto = (photo: string) => {
-    console.log(photo);
+    navigation.navigate("CreatePost", {
+      step: 2,
+      photo,
+    });
   };
 
-  return (
-    <View
-      style={{
-        flex: 1,
-        // justifyContent: "center",
-        // alignItems: "center",
-        backgroundColor: colors.primary,
-      }}
-    >
+  if (route.params.step != 2) {
+    content = (
       <ScrollView
         style={{
           // marginHorizontal: 20,
@@ -114,10 +159,14 @@ export default function CreatePostScreen() {
                 <Ionicons
                   name="camera-reverse-outline"
                   size={24}
-                  color={colors.text}
+                  color={colors.primary}
                 />
               ) : (
-                <Ionicons name="camera-outline" size={24} color={colors.text} />
+                <Ionicons
+                  name="camera-outline"
+                  size={24}
+                  color={colors.primary}
+                />
               )}
             </TouchableOpacity>
           </View>
@@ -160,6 +209,72 @@ export default function CreatePostScreen() {
           ))}
         </View>
       </ScrollView>
+    );
+  }
+
+  if (route.params.step == 2) {
+    content = (
+      <View>
+        <Image source={{ uri: route.params.photo }} style={styles.image} />
+        <TextInput
+          autoCorrect={false}
+          style={{
+            ...styles.textInput,
+            color: colors.text,
+            opacity: 0.6,
+          }}
+          placeholder="Write a post title..."
+          placeholderTextColor={colors.text}
+          maxLength={100}
+        />
+
+        <Text
+          style={{
+            color: colors.text,
+            textAlign: "right",
+            opacity: 0.6,
+            width: "98%",
+          }}
+        >
+          Max. 100
+        </Text>
+
+        <TextInput
+          style={{
+            ...styles.textInput,
+            backgroundColor: dark ? colors.cardBg : colors.secondary,
+            color: colors.text,
+            height: 100,
+            opacity: 0.6,
+          }}
+          multiline
+          placeholder="Write a post description..."
+          placeholderTextColor={colors.text}
+        />
+        <Text
+          style={{
+            color: colors.text,
+            textAlign: "right",
+            opacity: 0.6,
+            width: "98%",
+          }}
+        >
+          Max. 500
+        </Text>
+      </View>
+    );
+  }
+
+  return (
+    <View
+      style={{
+        flex: 1,
+        // justifyContent: "center",
+        // alignItems: "center",
+        backgroundColor: colors.primary,
+      }}
+    >
+      {content}
     </View>
   );
 }

@@ -7,7 +7,9 @@ const BackIcon = ({ navigation }: { navigation: any }) => {
   const { colors, dark } = useTheme();
   return (
     <TouchableOpacity
-      onPress={() => navigation.goBack()}
+      onPress={() => {
+        navigation.goBack();
+      }}
       style={{
         padding: 10,
         backgroundColor: dark ? colors.cardBg : colors.secondary,

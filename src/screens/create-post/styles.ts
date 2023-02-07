@@ -46,4 +46,12 @@ export default StyleSheet.create({
 
     alignSelf: "center",
   },
+
+  textInput: {
+    width: "100%",
+
+    marginVertical: 10,
+    padding: 10,
+    // borderRadius: 5,
+  },
 });
