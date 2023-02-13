@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   Platform,
   ScrollView,
+  ActivityIndicator,
 } from "react-native";
 import React, { useEffect } from "react";
 import { useTheme } from "@/theme/ThemeProvider";
@@ -15,6 +16,12 @@ import { BackIcon, Button } from "@/components";
 import useAuth from "@/hooks/useAuth";
 import { useAppSelector } from "@/app/store";
 import PostsList from "../home/posts-list";
+import axios from "@/utils/axios";
+
+const getUserByID = async (id: string) => {
+  const res = await axios(`/users/${id}`);
+  return res.data;
+};
 
 export default function ProfileScreen({
   navigation,
@@ -27,16 +34,40 @@ export default function ProfileScreen({
   const { colors, dark } = useTheme();
   const { user } = useAuth();
 
+  const [findedUser, setFindedUser] = React.useState<any>(null);
+
+  const findOne = async () => {
+    const loaded = await getUserByID(route.params.userId);
+    setFindedUser(loaded?.data);
+  };
+
   useEffect(() => {
+    // abort controller to cancel request
+    const abortController = new AbortController();
+
+    if (route?.params?.userId === user?.id) {
+      setFindedUser(user);
+    } else {
+      findOne();
+    }
+
     navigation.setOptions({
       headerLeft: () => <BackIcon navigation={navigation} />,
     });
-  }, [dark, navigation]);
 
-  const userPosts = posts.filter((post) => post.authorId === user?.id);
+    return () => {
+      abortController.abort();
+    };
+  }, [AbortController, findOne, dark, navigation]);
+
+  // if the authenticated is not the same as the user profile
+  // then we will show the user profile
+  // else we will show the authenticated user profile
+
+  const userPosts = posts.filter((post) => post.authorId === findedUser?.id);
 
   const userInfo = {
-    ...user,
+    ...findedUser,
     posts: userPosts,
   };
 
@@ -61,12 +92,13 @@ export default function ProfileScreen({
   };
 
   const openFullScreenImage = () => {
-    user?.photoURL &&
+    findedUser?.photoURL &&
       navigation.navigate("FullScreenImage", {
-        image: user?.photoURL as string,
+        image: findedUser?.photoURL as string,
       });
   };
 
+  console.log(findedUser);
   return (
     <View
       style={{
@@ -74,218 +106,226 @@ export default function ProfileScreen({
         backgroundColor: colors.primary,
       }}
     >
-      <ScrollView style={{ marginTop: 10, backgroundColor: colors.primary }}>
-        <TouchableOpacity
-          style={{
-            alignItems: "center",
-            justifyContent: "center",
-            height: 200,
-            backgroundColor: dark ? colors.cardBg : colors.secondary,
-            //   colors.primary
-            marginTop: 20,
-          }}
-        >
-          <View
-            style={{
-              flexDirection: "row",
-            }}
-          >
-            <Text
-              style={{
-                color: colors.text,
-                fontFamily: fonts.primary.regular,
-                fontSize: 18,
-                opacity: 0.4,
-              }}
-            >
-              Add
-            </Text>
-
-            <Ionicons
-              name="camera-outline"
-              size={24}
-              color={colors.text}
-              style={{
-                marginLeft: 10,
-                opacity: 0.4,
-              }}
-            />
-            <Text
-              style={{
-                color: colors.text,
-                fontFamily: fonts.primary.regular,
-                fontSize: 18,
-                marginLeft: 10,
-                opacity: 0.4,
-              }}
-            >
-              Cover photo
-            </Text>
-          </View>
-        </TouchableOpacity>
-
-        <View
-          style={{
-            position: "absolute",
-            top: 150,
-            left: 10,
-
-            justifyContent: "center",
-            alignItems: "flex-end",
-          }}
-        >
+      {isNaN(findedUser) ? (
+        <ScrollView style={{ marginTop: 10, backgroundColor: colors.primary }}>
           <TouchableOpacity
-            onPress={() => openFullScreenImage()}
             style={{
-              borderWidth: 3,
-              borderColor: colors.primary,
-              borderRadius: 90,
-              padding: 0.5,
+              alignItems: "center",
+              justifyContent: "center",
+              height: 200,
+              backgroundColor: dark ? colors.cardBg : colors.secondary,
+              //   colors.primary
+              marginTop: 20,
             }}
           >
-            <Image
-              source={{ uri: user?.photoURL }}
+            <View
               style={{
-                height: 120,
-                width: 120,
-                resizeMode: "cover",
-                backgroundColor: colors.primary,
-                borderRadius: 100,
+                flexDirection: "row",
               }}
-            />
+            >
+              <Text
+                style={{
+                  color: colors.text,
+                  fontFamily: fonts.primary.regular,
+                  fontSize: 18,
+                  opacity: 0.4,
+                }}
+              >
+                Add
+              </Text>
+
+              <Ionicons
+                name="camera-outline"
+                size={24}
+                color={colors.text}
+                style={{
+                  marginLeft: 10,
+                  opacity: 0.4,
+                }}
+              />
+              <Text
+                style={{
+                  color: colors.text,
+                  fontFamily: fonts.primary.regular,
+                  fontSize: 18,
+                  marginLeft: 10,
+                  opacity: 0.4,
+                }}
+              >
+                Cover photo
+              </Text>
+            </View>
           </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => pickImage()}
+          <View
             style={{
               position: "absolute",
-              // bottom: 0,
-              top: 100,
-              right: 5,
-              backgroundColor: colors.primary,
-              borderRadius: 50,
+              top: 150,
+              left: 10,
+
+              justifyContent: "center",
+              alignItems: "flex-end",
             }}
           >
-            <Ionicons
-              name="camera-outline"
-              size={24}
-              color={dark ? "#e5e7eb" : "#1f2937"}
-            />
-          </TouchableOpacity>
-        </View>
-
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginHorizontal: 10,
-            marginTop: 70,
-          }}
-        >
-          <View
-            style={{
-              marginLeft: 10,
-            }}
-          >
-            <Text
+            <TouchableOpacity
+              onPress={() => openFullScreenImage()}
               style={{
-                color: colors.text,
-
-                fontFamily: fonts.primary.regular,
-                fontSize: 18,
+                borderWidth: 3,
+                borderColor: colors.primary,
+                borderRadius: 90,
+                padding: 0.5,
               }}
             >
-              {userInfo?.name}
-            </Text>
-            <Text
+              <Image
+                source={{ uri: findedUser?.photoURL }}
+                style={{
+                  height: 120,
+                  width: 120,
+                  resizeMode: "cover",
+                  backgroundColor: colors.primary,
+                  borderRadius: 100,
+                }}
+              />
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={() => pickImage()}
               style={{
-                color: colors.text,
-                fontFamily: fonts.primary.regular,
-                fontSize: 14,
-                opacity: 0.4,
+                position: "absolute",
+                // bottom: 0,
+                top: 100,
+                right: 5,
+                backgroundColor: colors.primary,
+                borderRadius: 50,
               }}
             >
-              {userInfo?.email}
-            </Text>
+              <Ionicons
+                name="camera-outline"
+                size={24}
+                color={dark ? "#e5e7eb" : "#1f2937"}
+              />
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity
-            style={{
-              backgroundColor: colors.secondary,
-              padding: 10,
-              borderRadius: 10,
 
-              flexDirection: "row",
-              alignItems: "center",
-            }}
-          >
-            <Feather name="edit" size={15} color={colors.text} />
-            <Text
-              style={{
-                color: colors.text,
-                fontFamily: fonts.primary.regular,
-                fontSize: 14,
-                marginLeft: 5,
-              }}
-            >
-              Edit Profile
-            </Text>
-          </TouchableOpacity>
-        </View>
-
-        <View
-          style={{
-            marginBottom: 10,
-            marginTop: 20,
-          }}
-        >
           <View
             style={{
               flexDirection: "row",
               justifyContent: "space-between",
               alignItems: "center",
               marginHorizontal: 10,
+              marginTop: 70,
             }}
           >
-            <Text
+            <View
               style={{
-                color: colors.text,
-                fontFamily: fonts.primary.regular,
-                fontSize: 15,
-                marginTop: 10,
                 marginLeft: 10,
               }}
             >
-              Posts
-            </Text>
+              <Text
+                style={{
+                  color: colors.text,
 
-            <Button
-              variant="contained"
+                  fontFamily: fonts.primary.regular,
+                  fontSize: 18,
+                }}
+              >
+                {userInfo?.name}
+              </Text>
+              <Text
+                style={{
+                  color: colors.text,
+                  fontFamily: fonts.primary.regular,
+                  fontSize: 14,
+                  opacity: 0.4,
+                }}
+              >
+                {userInfo?.email}
+              </Text>
+            </View>
+            <TouchableOpacity
               style={{
-                // height: 35,
+                backgroundColor: colors.secondary,
                 padding: 10,
+                borderRadius: 10,
 
-                borderRadius: 50,
+                flexDirection: "row",
+                alignItems: "center",
               }}
-              onPress={() => navigation.navigate("CreatePost")}
             >
-              <Ionicons name="add-outline" size={20} color={colors.primary} />
-            </Button>
+              <Feather name="edit" size={15} color={colors.text} />
+              <Text
+                style={{
+                  color: colors.text,
+                  fontFamily: fonts.primary.regular,
+                  fontSize: 14,
+                  marginLeft: 5,
+                }}
+              >
+                Edit Profile
+              </Text>
+            </TouchableOpacity>
           </View>
 
           <View
             style={{
+              marginBottom: 10,
               marginTop: 20,
-              backgroundColor: colors.secondary,
-              height: 15,
             }}
-          />
+          >
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+                marginHorizontal: 10,
+              }}
+            >
+              <Text
+                style={{
+                  color: colors.text,
+                  fontFamily: fonts.primary.regular,
+                  fontSize: 15,
+                  marginTop: 10,
+                  marginLeft: 10,
+                }}
+              >
+                Posts
+              </Text>
+
+              <Button
+                variant="contained"
+                style={{
+                  // height: 35,
+                  padding: 10,
+
+                  borderRadius: 50,
+                }}
+                onPress={() => navigation.navigate("CreatePost")}
+              >
+                <Ionicons name="add-outline" size={20} color={colors.primary} />
+              </Button>
+            </View>
+
+            <View
+              style={{
+                marginTop: 20,
+                backgroundColor: colors.secondary,
+                height: 15,
+              }}
+            />
+          </View>
+          {userInfo.posts &&
+            userInfo.posts.map((item: any, i: number) => {
+              return <PostsList post={item} key={item.id} />;
+            })}
+        </ScrollView>
+      ) : (
+        <View
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
+          <ActivityIndicator size="large" color={colors.text} />
         </View>
-        {userInfo.posts &&
-          userInfo.posts.map((item: any, i: number) => {
-            return <PostsList post={item} key={item.id} />;
-          })}
-      </ScrollView>
+      )}
     </View>
   );
 }

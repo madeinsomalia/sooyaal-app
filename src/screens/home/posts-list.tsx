@@ -95,7 +95,11 @@ export default function PostsList({ post }: { post: Post }) {
       >
         <View style={styles.author}>
           <TouchableOpacity
-            onPress={() => navigation.navigate("Profile")}
+            onPress={() =>
+              navigation.navigate("Profile", {
+                userId: author?.id,
+              })
+            }
             style={styles.authorInfo}
           >
             <Image

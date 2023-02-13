@@ -12,10 +12,12 @@ import { View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { fonts } from "@/constants/fonts";
 import SinglePostScreen from "@/screens/single-post/single-post";
+import useAuth from "@/hooks/useAuth";
 
 const Stack = createNativeStackNavigator();
 
 export default function AppNavigator() {
+  const { user } = useAuth();
   const { colors } = useTheme();
   return (
     <Stack.Navigator initialRouteName="Home">
@@ -94,9 +96,9 @@ export default function AppNavigator() {
 
           // headerRight: () => <ToggleMode />,
         }}
-        // initialParams={{
-        //   userId: "1",
-        // }}
+        initialParams={{
+          userId: user?.id,
+        }}
       />
 
       <Stack.Screen

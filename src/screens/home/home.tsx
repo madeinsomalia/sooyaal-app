@@ -53,16 +53,6 @@ export default function HomeScreen({ navigation }: any) {
     });
   }, [user, dark, navigation, dispatch]);
 
-  // const [clicked, setClicked] = React.useState(false);
-  // const [searchPhrase, setSearchPhrase] = React.useState("");
-  // const pullMe = () => {
-  //   setRefresh(true);
-  //   setTimeout(() => {
-  //     dispatch(getPosts());
-  //     setRefresh(false);
-  //   }, 3000);
-  // };
-  // //
   const pullMe = useCallback(() => {
     setRefresh(true);
     setTimeout(() => {
