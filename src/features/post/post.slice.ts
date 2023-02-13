@@ -1,23 +1,46 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { Post } from "@/interfaces/post";
+import { createSlice, Dispatch } from "@reduxjs/toolkit";
+import PostService from "./post.service";
 
-const initialState = {
+interface Posts {
+  posts: Post[];
+  loading: boolean;
+  error: null | string;
+}
+
+const initialState: Posts = {
   posts: [],
-  post: null,
-  loading: true,
-  error: {},
+  loading: false,
+  error: null,
 };
 
 export const postSlice = createSlice({
   name: "post",
   initialState,
   reducers: {
+    getPostsLoading: (state) => {
+      state.loading = true;
+    },
+
     getPosts: (state, action) => {
       state.posts = action.payload;
+      state.loading = false;
+    },
+    getPostsError: (state, action) => {
+      state.error = action.payload;
       state.loading = false;
     },
   },
 });
 
-export const { getPosts } = postSlice.actions;
+export const getPosts = () => async (dispatch: Dispatch) => {
+  try {
+    dispatch(postSlice.actions.getPostsLoading());
+    const posts = await PostService.getPosts();
+    dispatch(postSlice.actions.getPosts(posts));
+  } catch (error) {
+    dispatch(postSlice.actions.getPostsError(error));
+  }
+};
 
 export default postSlice.reducer;

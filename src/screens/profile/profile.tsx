@@ -13,6 +13,8 @@ import * as ImagePicker from "expo-image-picker";
 import { fonts } from "@/constants/fonts";
 import { BackIcon, Button } from "@/components";
 import useAuth from "@/hooks/useAuth";
+import { useAppSelector } from "@/app/store";
+import PostsList from "../home/posts-list";
 
 export default function ProfileScreen({
   navigation,
@@ -21,6 +23,7 @@ export default function ProfileScreen({
   navigation: any;
   route: any;
 }) {
+  const { posts } = useAppSelector((state) => state.post);
   const { colors, dark } = useTheme();
   const { user } = useAuth();
 
@@ -30,8 +33,11 @@ export default function ProfileScreen({
     });
   }, [dark, navigation]);
 
+  const userPosts = posts.filter((post) => post.authorId === user?.id);
+
   const userInfo = {
     ...user,
+    posts: userPosts,
   };
 
   const pickImage = async () => {
@@ -275,10 +281,10 @@ export default function ProfileScreen({
             }}
           />
         </View>
-        {/* {profileUser?.posts &&
-          profileUser?.posts.map((item: any, i: number) => {
-            return <PostsList id={i + 1} key={item.id} />;
-          })} */}
+        {userInfo.posts &&
+          userInfo.posts.map((item: any, i: number) => {
+            return <PostsList post={item} key={item.id} />;
+          })}
       </ScrollView>
     </View>
   );

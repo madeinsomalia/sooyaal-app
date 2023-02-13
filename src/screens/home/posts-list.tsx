@@ -5,9 +5,10 @@ import { useTheme } from "@/theme/ThemeProvider";
 import { styles } from "./styles";
 import { Modal } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { Post } from "@/interfaces/post";
 
-export default function PostsList({ id }: { id: number }) {
-  const navigation = useNavigation();
+export default function PostsList({ post }: { post: Post }) {
+  const navigation: any = useNavigation();
   const { colors, dark } = useTheme();
   const [showModal, setShowModal] = React.useState(false);
 
@@ -82,6 +83,7 @@ export default function PostsList({ id }: { id: number }) {
   }
 
   const count = "10000";
+  const { id, title, content, author, createdAt, photoURL } = post;
   return (
     <>
       <View
@@ -92,9 +94,12 @@ export default function PostsList({ id }: { id: number }) {
         }}
       >
         <View style={styles.author}>
-          <View style={styles.authorInfo}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Profile")}
+            style={styles.authorInfo}
+          >
             <Image
-              source={{ uri: "https://picsum.photos/200" }}
+              source={{ uri: author?.photoURL || "" }}
               style={styles.avatar}
             />
             <View
@@ -104,7 +109,7 @@ export default function PostsList({ id }: { id: number }) {
               }}
             >
               <Text style={{ color: colors.text, fontSize: 15, marginLeft: 5 }}>
-                {"Abdi Zamed Mohamed"}
+                {author?.name || "Anonymous"}
               </Text>
               <View
                 style={{
@@ -121,7 +126,7 @@ export default function PostsList({ id }: { id: number }) {
                 </Text>
               </View>
             </View>
-          </View>
+          </TouchableOpacity>
 
           <TouchableOpacity>
             <AntDesign
@@ -135,7 +140,7 @@ export default function PostsList({ id }: { id: number }) {
 
         <View style={styles.content}>
           <Text style={{ color: colors.text, fontSize: 20, marginTop: 10 }}>
-            Post
+            {title}.
           </Text>
           <Text
             style={{
@@ -145,19 +150,15 @@ export default function PostsList({ id }: { id: number }) {
               paddingBottom: 10,
             }}
           >
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis quod,
-            quia, voluptas, voluptate quas voluptates quibusdam voluptatum quae
-            quidem quos nesciunt. Quisquam, quae. Quisquam quae, quod quibusdam
-            quia quos voluptas.
+            {content.length > 140
+              ? content.slice(0, 140) + "  Read more..."
+              : content}
           </Text>
         </View>
 
-        <Image
-          source={{
-            uri: "https://www.traveltourxp.com/wp-content/uploads/2016/09/Attractions-Of-Somalia.jpg",
-          }}
-          style={styles.image}
-        />
+        {photoURL.length > 0 && (
+          <Image source={{ uri: photoURL[0] }} style={styles.image} />
+        )}
 
         <View
           style={{
@@ -245,7 +246,7 @@ export default function PostsList({ id }: { id: number }) {
             onPress={() => {
               // @ts-ignore
               navigation.navigate("Post", {
-                postId: id,
+                postId: post.id,
               } as any);
             }}
           >

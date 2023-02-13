@@ -6,14 +6,18 @@ import {
   ScrollView,
   RefreshControl,
   Text,
+  ActivityIndicator,
 } from "react-native";
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, memo, useCallback, useEffect, useState } from "react";
 import { useTheme } from "@/theme/ThemeProvider";
 import { styles } from "./styles";
 import PostsList from "./posts-list";
 import { Button } from "@/components";
 import { Ionicons } from "@expo/vector-icons";
 import useAuth from "@/hooks/useAuth";
+import { useAppDispatch, useAppSelector } from "@/app/store";
+import { getPosts } from "@/features/post/post.slice";
+import { Post } from "@/interfaces/post";
 // import ShimmerPlaceholder from "react-native-shimmer-placeholder";
 // import LinearGradient from "expo-linear-gradient";
 // import SkeletonPlaceholder from "react-native-skeleton-placeholder";
@@ -21,10 +25,13 @@ import useAuth from "@/hooks/useAuth";
 export default function HomeScreen({ navigation }: any) {
   const { colors, dark } = useTheme();
   const { user } = useAuth();
+  const { error, loading, posts } = useAppSelector((state) => state.post);
+  const dispatch = useAppDispatch();
 
   const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
+    dispatch(getPosts());
     navigation.setOptions({
       headerLeft: () => (
         <TouchableOpacity
@@ -44,17 +51,26 @@ export default function HomeScreen({ navigation }: any) {
         </TouchableOpacity>
       ),
     });
-  }, [user, dark, navigation]);
+  }, [user, dark, navigation, dispatch]);
 
   // const [clicked, setClicked] = React.useState(false);
   // const [searchPhrase, setSearchPhrase] = React.useState("");
-  const pullMe = () => {
+  // const pullMe = () => {
+  //   setRefresh(true);
+  //   setTimeout(() => {
+  //     dispatch(getPosts());
+  //     setRefresh(false);
+  //   }, 3000);
+  // };
+  // //
+  const pullMe = useCallback(() => {
     setRefresh(true);
     setTimeout(() => {
+      dispatch(getPosts());
       setRefresh(false);
     }, 3000);
-  };
-  //
+  }, [dispatch, refresh]);
+
   return (
     <SafeAreaView
       style={{
@@ -80,13 +96,24 @@ export default function HomeScreen({ navigation }: any) {
             height: 15,
           }}
         />
-        {[...Array(10)].map((_, i) => {
-          return (
-            <Fragment key={i}>
-              <PostsList key={i} id={i} />
-            </Fragment>
-          );
-        })}
+        {loading ? (
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: colors.secondary,
+            }}
+          >
+            <ActivityIndicator size="large" color={colors.text} />
+          </View>
+        ) : (
+          <Fragment>
+            {posts.map((post) => (
+              <PostsList key={post.id} post={post} />
+            ))}
+          </Fragment>
+        )}
       </ScrollView>
 
       {/* action button that navigates add post screen */}

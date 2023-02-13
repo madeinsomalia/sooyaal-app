@@ -94,9 +94,9 @@ export default function AppNavigator() {
 
           // headerRight: () => <ToggleMode />,
         }}
-        initialParams={{
-          userId: "1",
-        }}
+        // initialParams={{
+        //   userId: "1",
+        // }}
       />
 
       <Stack.Screen
