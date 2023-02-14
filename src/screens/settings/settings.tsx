@@ -31,6 +31,7 @@ const sectionData = [
   {
     id: 2,
     title: "Change Password",
+    page: "ChangePassword",
     icon: "lock-closed-outline",
   },
 

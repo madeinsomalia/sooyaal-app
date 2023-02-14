@@ -6,3 +6,4 @@ export { default as SettingsScreen } from "./settings/settings";
 export { default as ProfileScreen } from "./profile/profile";
 export { default as CreatePostScreen } from "./create-post/create-post";
 export { default as ChangeLanguageScreen } from "./change-language/change-lang";
+export { default as ChangePasswordScreen } from "./change-password/change-pass";

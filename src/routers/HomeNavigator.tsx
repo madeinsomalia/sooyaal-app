@@ -5,6 +5,7 @@ import {
   ProfileScreen,
   SettingsScreen,
   ChangeLanguageScreen,
+  ChangePasswordScreen,
 } from "@/screens";
 import { useTheme } from "@/theme/ThemeProvider";
 import { Link } from "@react-navigation/native";
@@ -14,12 +15,15 @@ import { Ionicons } from "@expo/vector-icons";
 import { fonts } from "@/constants/fonts";
 import SinglePostScreen from "@/screens/single-post/single-post";
 import useAuth from "@/hooks/useAuth";
+import { useTranslation } from "react-i18next";
 
 const Stack = createNativeStackNavigator();
 
 export default function AppNavigator() {
   const { user } = useAuth();
   const { colors } = useTheme();
+
+  const { t } = useTranslation();
   return (
     <Stack.Navigator initialRouteName="Home">
       <Stack.Screen
@@ -187,8 +191,24 @@ export default function AppNavigator() {
         name="ChangeLanguage"
         component={ChangeLanguageScreen}
         options={{
-          // headerShown: false,
-          headerTitle: "Change Language",
+          headerTitle: t("change-language") as string,
+          headerStyle: {
+            backgroundColor: colors.primary,
+          },
+          headerShadowVisible: false,
+          headerTitleStyle: {
+            color: colors.text,
+            fontFamily: fonts.primary.regular,
+          },
+          headerTitleAlign: "center",
+        }}
+      />
+
+      <Stack.Screen
+        name="ChangePassword"
+        component={ChangePasswordScreen}
+        options={{
+          headerTitle: t("change-password") as string,
           headerStyle: {
             backgroundColor: colors.primary,
           },

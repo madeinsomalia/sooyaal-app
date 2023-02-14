@@ -1,6 +1,8 @@
 {
   "welcome-message": "Sooyaal is a social media blogs app that allows you to share your ideas with the world. You can also read blogs from other people.",
   "change-language": "Change Language",
+  "change-password": "Change Password",
+  "change-password-message": "Change your account password here, you can change it anytime you want. enter your old password and then press enter to validate the password and show the new password input.",
   "form.btn.login": "Sign in",
   "form.btn.register": "Sign up",
   "form.btn.forgotPassword": "Forgot Password?",
@@ -8,5 +10,11 @@
   "form.input.email": "Enter your email",
   "form.label.password": "Password",
   "form.input.password": "Enter your password",
+  "form.label.oldPassword": "Old Password",
+  "form.input.oldPassword": "Enter your old password",
+  "form.label.newPassword": "New Password",
+  "form.input.newPassword": "Enter your new password",
+  "form.label.confirmPassword": "Confirm Password",
+  "form.input.confirmPassword": "Confirm your password",
   "form.label.name": "Name"
 }

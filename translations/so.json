@@ -1,7 +1,8 @@
 {
   "welcome-message": "Sooyaal waa madal eey ku kulato bulshada, kaas oo kuu ogolaanaya inaad la wadaagto fikradahaaga dunida. Waxaad sidoo kale akhrin kartaa maqaalada dadka kale.",
   "change-language": "Bedel Luuqada",
-
+  "change-password": "Bedel Furaha",
+  "change-password-message": "Gali furahaagii hore halkan iyo ka cusubba, waxaad badali kartaa xili kasto oo aad rabto. kaliya gili furahaagii hore kadib enter taabo si loo xaqiijiyo furaha kadib gali furahaaga cusub.",
   "form.btn.login": "Gal",
   "form.btn.register": "Is Diiwaangali",
   "form.btn.forgotPassword": "Ma Ilowday Furaha?",
@@ -9,5 +10,11 @@
   "form.input.email": "Gali Iimayl-kaaga",
   "form.label.password": "Furaha",
   "form.input.password": "Gali Furahaaga",
+  "form.label.oldPassword": "Furihii Hore",
+  "form.input.oldPassword": "Gali Furihii Hore",
+  "form.label.newPassword": "Furaha Cusub",
+  "form.input.newPassword": "Gali Furaha Cusub",
+  "form.label.confirmPassword": "Furaha Xaqiiji",
+  "form.input.confirmPassword": "Xaqiiji Furahaaga",
   "form.label.name": "Magacaaga"
 }
