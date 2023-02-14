@@ -1,0 +1,13 @@
+{
+  "welcome-message": "Sooyaal waa madal eey ku kulato bulshada, kaas oo kuu ogolaanaya inaad la wadaagto fikradahaaga dunida. Waxaad sidoo kale akhrin kartaa maqaalada dadka kale.",
+  "change-language": "Bedel Luuqada",
+
+  "form.btn.login": "Gal",
+  "form.btn.register": "Is Diiwaangali",
+  "form.btn.forgotPassword": "Ma Ilowday Furaha?",
+  "form.label.email": "Iimayl-ka",
+  "form.input.email": "Gali Iimayl-kaaga",
+  "form.label.password": "Furaha",
+  "form.input.password": "Gali Furahaaga",
+  "form.label.name": "Magacaaga"
+}

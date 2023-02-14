@@ -54,6 +54,7 @@ export default function Button({
         ...styles[variant],
         ...style,
       }}
+      disabled={loading}
     >
       {loading ? (
         <ActivityIndicator color={colors.primary} />

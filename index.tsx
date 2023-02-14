@@ -5,6 +5,7 @@ import { CustomFontsProvider } from "@/contexts/FontsContext";
 import { PersistGate } from "redux-persist/integration/react";
 import { store, persistor } from "@/app/store";
 import { Provider } from "react-redux";
+import "./i8n.config";
 
 export default function index() {
   return (

@@ -3,9 +3,11 @@ import { Linking, SafeAreaView, Text, View } from "react-native";
 import { useTheme } from "@/theme/ThemeProvider";
 import { styles } from "./styles";
 import { Button } from "@/components";
+import { useTranslation } from "react-i18next";
 
 export default function WelcomeScreen({ navigation }: { navigation: any }) {
   const { colors } = useTheme();
+  const { t } = useTranslation();
   return (
     <SafeAreaView
       style={{
@@ -31,8 +33,7 @@ export default function WelcomeScreen({ navigation }: { navigation: any }) {
             color: colors.text,
           }}
         >
-          Sooyaal is a social media blogs app that allows you to share your
-          ideas with the world. You can also read blogs from other people.
+          {t("welcome-message")}
         </Text>
       </View>
 
@@ -45,10 +46,10 @@ export default function WelcomeScreen({ navigation }: { navigation: any }) {
           variant="contained"
           onPress={() => navigation.navigate("Login")}
         >
-          Sign in
+          {t("form.btn.login")}
         </Button>
         <Button variant="text" onPress={() => navigation.navigate("Register")}>
-          Sign up
+          {t("form.btn.register")}
         </Button>
       </View>
 

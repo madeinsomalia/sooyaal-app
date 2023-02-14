@@ -4,6 +4,7 @@ import {
   HomeScreen,
   ProfileScreen,
   SettingsScreen,
+  ChangeLanguageScreen,
 } from "@/screens";
 import { useTheme } from "@/theme/ThemeProvider";
 import { Link } from "@react-navigation/native";
@@ -179,6 +180,24 @@ export default function AppNavigator() {
           },
 
           headerShadowVisible: false,
+        }}
+      />
+
+      <Stack.Screen
+        name="ChangeLanguage"
+        component={ChangeLanguageScreen}
+        options={{
+          // headerShown: false,
+          headerTitle: "Change Language",
+          headerStyle: {
+            backgroundColor: colors.primary,
+          },
+          headerShadowVisible: false,
+          headerTitleStyle: {
+            color: colors.text,
+            fontFamily: fonts.primary.regular,
+          },
+          headerTitleAlign: "center",
         }}
       />
     </Stack.Navigator>

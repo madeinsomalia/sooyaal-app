@@ -42,6 +42,12 @@ export default function ProfileScreen({
   };
 
   useEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => <BackIcon navigation={navigation} />,
+    });
+  }, [dark, navigation]);
+
+  useEffect(() => {
     // abort controller to cancel request
     const abortController = new AbortController();
 
@@ -50,15 +56,10 @@ export default function ProfileScreen({
     } else {
       findOne();
     }
-
-    navigation.setOptions({
-      headerLeft: () => <BackIcon navigation={navigation} />,
-    });
-
     return () => {
       abortController.abort();
     };
-  }, [AbortController, findOne, dark, navigation]);
+  }, [route?.params?.userId, user]);
 
   // if the authenticated is not the same as the user profile
   // then we will show the user profile
@@ -98,7 +99,6 @@ export default function ProfileScreen({
       });
   };
 
-  console.log(findedUser);
   return (
     <View
       style={{

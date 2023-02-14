@@ -6,6 +6,7 @@ import { styles } from "./styles";
 import { Modal } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Post } from "@/interfaces/post";
+import { formatRelativeTime } from "@/utils/formatDate";
 
 export default function PostsList({ post }: { post: Post }) {
   const navigation: any = useNavigation();
@@ -126,7 +127,7 @@ export default function PostsList({ post }: { post: Post }) {
                 <Text
                   style={{ color: colors.text, fontSize: 15, marginLeft: 5 }}
                 >
-                  {"1 hour ago"}
+                  {formatRelativeTime(new Date(createdAt))}
                 </Text>
               </View>
             </View>

@@ -1,0 +1,12 @@
+{
+  "welcome-message": "Sooyaal is a social media blogs app that allows you to share your ideas with the world. You can also read blogs from other people.",
+  "change-language": "Change Language",
+  "form.btn.login": "Sign in",
+  "form.btn.register": "Sign up",
+  "form.btn.forgotPassword": "Forgot Password?",
+  "form.label.email": "Email",
+  "form.input.email": "Enter your email",
+  "form.label.password": "Password",
+  "form.input.password": "Enter your password",
+  "form.label.name": "Name"
+}

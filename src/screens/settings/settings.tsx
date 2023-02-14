@@ -18,6 +18,12 @@ import useAuth from "@/hooks/useAuth";
 
 const sectionData = [
   {
+    id: 3,
+    title: "Change Language",
+    icon: "language-outline",
+    page: "ChangeLanguage",
+  },
+  {
     id: 1,
     title: "Favourites",
     icon: "heart-outline",
@@ -27,16 +33,7 @@ const sectionData = [
     title: "Change Password",
     icon: "lock-closed-outline",
   },
-  {
-    id: 3,
-    title: "Notifications",
-    icon: "notifications-outline",
-  },
-  {
-    id: 4,
-    title: "Privacy & Security",
-    icon: "shield-checkmark-outline",
-  },
+
   {
     id: 5,
     title: "About",
@@ -116,6 +113,7 @@ export default function SettingsScreen({ navigation }: { navigation: any }) {
                 flexDirection: "row",
                 alignItems: "center",
               }}
+              onPress={() => item.page && navigation.navigate(item.page)}
             >
               <Ionicons name={item.icon as any} size={24} color={colors.text} />
               <Text style={{ color: colors.text, paddingLeft: 10 }}>

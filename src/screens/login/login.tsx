@@ -15,6 +15,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { login } from "@/features/auth/auth.api";
 import { useAppDispatch } from "@/app/store";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
+import { useTranslation } from "react-i18next";
 
 interface LoginState {
   email: string;
@@ -27,6 +28,7 @@ const initialState: LoginState = {
 };
 
 export default function LoginScreen({ navigation }: { navigation: any }) {
+  const { t } = useTranslation();
   const { colors } = useTheme();
   const [showPassword, setShowPassword] = React.useState(false);
   const dispatch = useAppDispatch();
@@ -87,7 +89,7 @@ export default function LoginScreen({ navigation }: { navigation: any }) {
                 autoComplete="email"
                 autoCorrect={false}
                 autoCapitalize="none"
-                placeholder="Email"
+                placeholder={t("form.input.email") + " *"}
                 style={{
                   ...styles.input,
                   color: colors.text,
@@ -117,7 +119,7 @@ export default function LoginScreen({ navigation }: { navigation: any }) {
                   autoComplete="password"
                   autoCorrect={false}
                   // keyboardType="visible-password"
-                  placeholder="Password"
+                  placeholder={t("form.input.password") + " *"}
                   style={{
                     ...styles.input,
                     color: colors.text,
@@ -180,7 +182,7 @@ export default function LoginScreen({ navigation }: { navigation: any }) {
                 variant="contained"
                 onPress={handleSubmit}
               >
-                Login
+                {t("form.btn.login")}
               </Button>
             </View>
           </>
@@ -199,13 +201,13 @@ export default function LoginScreen({ navigation }: { navigation: any }) {
         }}
       >
         <Button variant="text" onPress={() => navigation.navigate("Register")}>
-          Sign up
+          {t("form.btn.register")}
         </Button>
         <Button
           variant="text"
           onPress={() => navigation.navigate("ForgotPassword")}
         >
-          Forgot Password ?
+          {t("form.btn.forgotPassword")}
         </Button>
       </View>
     </View>
