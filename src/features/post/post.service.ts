@@ -6,7 +6,7 @@ export default class PostService {
    * @returns response.data
    */
   public static async getPosts() {
-    const response = await axios.get("/posts");
+    const response = await axios.get("/posts/public");
     return response.data;
   }
 

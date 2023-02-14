@@ -9,13 +9,11 @@ const persistConfig = {
   keyPrefix: "redux-",
   key: "root",
   storage: AsyncStorage,
-  whitelist: ["auth"],
+  // whitelist: ["auth"],
 };
 
-const rootReducer = combineReducers({
+export const persistedReducer = combineReducers({
   // Add the generated reducer as a specific top-level slice
-  auth: authReducer,
+  auth: persistReducer(persistConfig, authReducer),
   post: postReducer,
 });
-
-export const persistedReducer = persistReducer(persistConfig, rootReducer);

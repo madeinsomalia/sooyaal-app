@@ -51,7 +51,7 @@ export default function PostsList({ post }: { post: Post }) {
               onPress={() => setShowModal(false)}
             >
               <Ionicons
-                name="radio-button-on-outline"
+                name={post.isPublic ? "radio-button-on" : "radio-button-off"}
                 size={24}
                 color={colors.text}
               />
@@ -71,7 +71,7 @@ export default function PostsList({ post }: { post: Post }) {
               onPress={() => setShowModal(false)}
             >
               <Ionicons
-                name="radio-button-off-outline"
+                name={post.isPublic ? "radio-button-off" : "radio-button-on"}
                 size={24}
                 color={colors.text}
               />
